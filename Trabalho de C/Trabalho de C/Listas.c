@@ -1,9 +1,9 @@
-#include <stdio.h>
+#include <stdlib.h>
 #include "Main.h"
 
 
 /*
-Função que aloca memória para uma nova jogada
+Funï¿½ï¿½o que aloca memï¿½ria para uma nova jogada
 */
 JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento)
 {
@@ -16,7 +16,7 @@ JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento)
 
 
 /*
-Função que insere a jogada mais recente na última posição da lista de jogadas
+Funï¿½ï¿½o que insere a jogada mais recente na ï¿½ltima posiï¿½ï¿½o da lista de jogadas
 */
 JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 {
@@ -31,5 +31,5 @@ JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 		aux->next = novo;
 	}
 
-	return aux;
+	return head;
 }
