@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.c" />
     <ClCompile Include="Listas.c" />
   </ItemGroup>
   <ItemGroup>

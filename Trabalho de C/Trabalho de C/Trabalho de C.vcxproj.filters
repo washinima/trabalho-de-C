@@ -18,6 +18,9 @@
     <ClCompile Include="Listas.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Board.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Listas.h">
