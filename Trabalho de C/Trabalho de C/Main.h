@@ -19,3 +19,6 @@ typedef struct Jogadas {
 }Jogadas;
 
 typedef Jogadas *JogadasPtr;
+
+
+#define SIZE 8

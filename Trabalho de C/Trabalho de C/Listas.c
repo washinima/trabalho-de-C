@@ -21,7 +21,7 @@ Fun��o que insere a jogada mais recente na �ltima posi��o da lista de 
 JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 {
 	JogadasPtr aux = head;
-	if (aux == NULL) aux = novo;
+	if (head == NULL) head = novo;
 	else
 	{
 		while (aux->next != NULL)
