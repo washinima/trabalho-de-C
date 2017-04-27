@@ -3,7 +3,17 @@
 
 
 /*
-Fun��o que aloca mem�ria para uma nova jogada
+Função que inicializa a lista de jogadas
+*/
+JogadasPtr IniciaLista()
+{
+	JogadasPtr head = NULL;
+	return head;
+}
+
+
+/*
+Função que aloca memória para uma nova jogada
 */
 JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento)
 {
@@ -16,7 +26,7 @@ JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento)
 
 
 /*
-Fun��o que insere a jogada mais recente na �ltima posi��o da lista de jogadas
+Funcão que insere a jogada mais recente na última posição da lista de jogadas
 */
 JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 {
