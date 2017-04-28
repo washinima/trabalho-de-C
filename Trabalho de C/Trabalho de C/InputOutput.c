@@ -1,9 +1,19 @@
 #include "Main.h"
 
-/*void ImprimirTabuleiro()
+void ImprimirTabuleiro(TabuleiroPtr board)
 {
-	for (int i = 0; i < SIZE; i++)
+	printf("+---+---+---+---+---+---+---+---+\n");		//com printf dá erro????
+
+	for (int x = 0; x < SIZE; x++)
 	{
-		for (int j = 0; i < SIZE; i++)
+		for (int y = 0; y < SIZE; y++)
+		{
+			if ((*board)[x][y] != NULL)
+				printf(" %d |", (*board)[x][y]->numPeca);
+			else
+				printf("     |");
+		}
+		printf("\n");
+		printf("+---+---+---+---+---+---+---+---+\n");
 	}
-}*/
+}

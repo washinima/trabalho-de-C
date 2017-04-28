@@ -3,8 +3,11 @@
 
 int main()
 {
-	PecaPtr a = CriarPeao();
-	printf("%s", a->tipo);
+	TabuleiroPtr board = CreateBoard();
+	ImprimirTabuleiro(board);
+
+	//PecaPtr a = CriarPeao();
+	//printf("%s", a->tipo);
 
 	return 0;
 }

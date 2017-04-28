@@ -44,6 +44,9 @@ JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 }
 
 
+/*
+Função para libertar a lista de jogadas da memória
+*/
 void FreeLista(JogadasPtr head)
 {
 	JogadasPtr aux = head;

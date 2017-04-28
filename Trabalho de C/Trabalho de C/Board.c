@@ -6,24 +6,36 @@ TabuleiroPtr CreateBoard()
 {
 
 	TabuleiroPtr board = (TabuleiroPtr)malloc(sizeof(Tabuleiro));
-
+	int numPeca = 1;
 	//(*board)[1][1] = a;
+
+	for (int x = 0; x < SIZE; x++)					//x = linhas
+	{
+		for (int y = 0; y < SIZE; y++)				//y = colunas
+		{
+			if (y == 1 && x == 5) (*board)[x][y] = CriarRei(numPeca, x, y);
+
+			else if (y <= 1 || y >= 6) (*board)[x][y] = CriarPeao(numPeca, x, y);
+
+			else (*board)[x][y] = NULL;
+
+			numPeca++;
+		}
+	}
 
 	return board;
 }
 
 
 /*
-Função para criar uma peça peão com apenas o tipo inicializado a Peão
-
-O número da peça e posição são inicializadas no CreateBoard()
+Função para criar uma peça Peão
 */
-PecaPtr CriarPeao()
+PecaPtr CriarPeao(int numPeca, int x, int y)
 {
 	PecaPtr peao = (PecaPtr)malloc(sizeof(Peca));
-	peao->numPeca = NULL;
-	peao->posicao.X = NULL;
-	peao->posicao.Y = NULL;
+	peao->numPeca = numPeca;
+	peao->posicao.X = x;
+	peao->posicao.Y = y;
 	char* a = "Peao";
 	peao->tipo = a;
 
@@ -31,3 +43,17 @@ PecaPtr CriarPeao()
 }
 
 
+/*
+Função para criar a peça Rei
+*/
+PecaPtr CriarRei(int numPeca, int x, int y)
+{
+	PecaPtr rei = (PecaPtr)malloc(sizeof(Peca));
+	rei->numPeca = numPeca;
+	rei->posicao.X = x;
+	rei->posicao.Y = y;
+	char* a = "Rei";
+	rei->tipo = a;
+
+	return rei;
+}
