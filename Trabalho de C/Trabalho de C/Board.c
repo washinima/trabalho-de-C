@@ -1,9 +1,12 @@
 #include "Main.h"
 
 
-PecaPtr* CreateBoard()
+TabuleiroPtr CreateBoard()
 {
-	PecaPtr board[SIZE][SIZE] = { NULL };
 
-	return *board;
+	TabuleiroPtr board = (TabuleiroPtr)malloc(sizeof(Tabuleiro));
+
+	//(*board)[1][1] = a;
+
+	return board;
 }

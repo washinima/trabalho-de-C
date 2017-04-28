@@ -26,5 +26,7 @@ typedef struct Jogadas {
 
 typedef Jogadas *JogadasPtr;
 
+//BOARD
+TabuleiroPtr CreateBoard();
 
-PecaPtr* CreateBoard();
+//LISTAS
