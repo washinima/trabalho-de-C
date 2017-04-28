@@ -21,14 +21,14 @@
     <ClCompile Include="Board.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InputOutput.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Listas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -42,3 +42,9 @@ JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 
 	return head;
 }
+
+
+void FreeJogada(JogadasPtr aux)
+{
+	free(aux);
+}
