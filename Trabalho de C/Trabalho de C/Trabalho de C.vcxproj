@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Board.c" />
     <ClCompile Include="Listas.c" />
+    <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />

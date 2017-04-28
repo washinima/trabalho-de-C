@@ -1,3 +1,7 @@
+#include <stdlib.h>
+
+#define SIZE 8
+
 typedef struct Coordenadas {
 	int posicaoX;
 	int posicaoY;
@@ -11,6 +15,8 @@ typedef struct Peca {
 }Peca;
 
 typedef Peca *PecaPtr;
+typedef PecaPtr Tabuleiro[SIZE][SIZE];
+typedef Tabuleiro *TabuleiroPtr;
 
 typedef struct Jogadas {
 	PecaPtr peca;
@@ -21,4 +27,4 @@ typedef struct Jogadas {
 typedef Jogadas *JogadasPtr;
 
 
-#define SIZE 8
+PecaPtr* CreateBoard();

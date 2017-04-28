@@ -1,9 +1,9 @@
 #include "Main.h"
-#include <stdlib.h>
 
-PecaPtr CreateBoard(int x, int y)
+
+PecaPtr* CreateBoard()
 {
-	PecaPtr board = (PecaPtr) malloc (sizeof(Peca[SIZE][SIZE]));
+	PecaPtr board[SIZE][SIZE] = { NULL };
 
-	return board;
+	return *board;
 }
