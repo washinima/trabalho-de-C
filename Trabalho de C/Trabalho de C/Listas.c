@@ -44,7 +44,17 @@ JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 }
 
 
-void FreeJogada(JogadasPtr aux)
+void FreeLista(JogadasPtr head)
 {
+	JogadasPtr aux = head;
+	JogadasPtr aux2 = aux;
+	while (aux->next != NULL)
+	{
+		aux = aux->next;
+		free(aux2);
+		aux2 = aux;
+	}
 	free(aux);
+
+	//return NULL;
 }

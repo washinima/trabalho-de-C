@@ -1,4 +1,5 @@
 #include "Main.h"
+#include <string.h>
 
 
 TabuleiroPtr CreateBoard()
@@ -12,15 +13,21 @@ TabuleiroPtr CreateBoard()
 }
 
 
+/*
+Função para criar uma peça peão com apenas o tipo inicializado a Peão
+
+O número da peça e posição são inicializadas no CreateBoard()
+*/
 PecaPtr CriarPeao()
 {
 	PecaPtr peao = (PecaPtr)malloc(sizeof(Peca));
 	peao->numPeca = NULL;
-	peao->posicao.posicaoX = NULL;
-	peao->posicao.posicaoY = NULL;
-	char* a = (char*)malloc(sizeof("Peao"));
-	*a = "Peao";
+	peao->posicao.X = NULL;
+	peao->posicao.Y = NULL;
+	char* a = "Peao";
 	peao->tipo = a;
 
 	return peao;
 }
+
+
