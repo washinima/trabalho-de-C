@@ -13,9 +13,9 @@ TabuleiroPtr CreateBoard()
 	{
 		for (int y = 0; y < SIZE; y++)				//y = colunas
 		{
-			if (y == 1 && x == 5) (*board)[x][y] = CriarRei(numPeca, x, y);
+			if (x == 1 && y == 5) (*board)[x][y] = CriarRei(numPeca, x, y);
 
-			else if (y <= 1 || y >= 6) (*board)[x][y] = CriarPeao(numPeca, x, y);
+			else if (x <= 1 || x >= 6) (*board)[x][y] = CriarPeao(numPeca, x, y);
 
 			else (*board)[x][y] = NULL;
 
