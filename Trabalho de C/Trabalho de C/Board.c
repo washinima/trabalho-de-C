@@ -15,13 +15,20 @@ TabuleiroPtr CreateBoard()
 		{
 			if ((x == 0 || x == 7) && y == 4)
 			{
-				(*board)[x][y] = CriarRei(numPeca, x, y);
+				if(x == 0)
+					(*board)[x][y] = CriarRei(numPeca, x, y, false);
+				else
+					(*board)[x][y] = CriarRei(numPeca, x, y, true);
 				numPeca++;
 			}
 
 			else if (x <= 1 || x >= 6)
 			{
-				(*board)[x][y] = CriarPeao(numPeca, x, y);
+				if (x <= 1)
+					(*board)[x][y] = CriarPeao(numPeca, x, y, false);
+				else
+					(*board)[x][y] = CriarPeao(numPeca, x, y, true);
+				
 				numPeca++;
 			}
 
@@ -37,13 +44,13 @@ TabuleiroPtr CreateBoard()
 /*
 Função para criar uma peça Peão
 */
-PecaPtr CriarPeao(int numPeca, int x, int y)
+PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer)
 {
 	PecaPtr peao = (PecaPtr)malloc(sizeof(Peca));
 	peao->numPeca = numPeca;
 	peao->posicao.X = x;
 	peao->posicao.Y = y;
-	if (numPeca < 17) peao->visualPeca = '¢';		//189 em ASCII		alt+189
+	if (!isPlayer) peao->visualPeca = '¢';		//189 em ASCII		alt+189
 	else peao->visualPeca = 'c';
 	char* a = "Peao";
 	peao->tipo = a;
@@ -55,13 +62,13 @@ PecaPtr CriarPeao(int numPeca, int x, int y)
 /*
 Função para criar a peça Rei
 */
-PecaPtr CriarRei(int numPeca, int x, int y)
+PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
 {
 	PecaPtr rei = (PecaPtr)malloc(sizeof(Peca));
 	rei->numPeca = numPeca;
 	rei->posicao.X = x;
 	rei->posicao.Y = y;
-	if (numPeca == 5) rei->visualPeca = 'Ø';		//157 em ASCII		alt+157
+	if (!isPlayer) rei->visualPeca = 'Ø';		//157 em ASCII		alt+157
 	else rei->visualPeca = 'O';
 	char* a = "Rei";
 	rei->tipo = a;
@@ -73,4 +80,10 @@ void Jogar()
 {
 	TabuleiroPtr a = CreateBoard();
 	ImprimirTabuleiro(a);
+}
+
+TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada)
+{
+
+	return board;
 }

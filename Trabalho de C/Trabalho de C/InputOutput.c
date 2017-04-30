@@ -1,5 +1,20 @@
 #include "Main.h"
 
+JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
+{
+	if(player->player == false)
+	{
+		
+	}
+
+
+
+
+	return NULL;
+}
+
+
+
 void ImprimirTabuleiro(TabuleiroPtr board)
 {
 	printf("+---+---+---+---+---+---+---+---+\n");		//com printf dá erro????
@@ -39,7 +54,7 @@ void Menu()
 	int opcao = 0;
 	while (opcao != 3)
 	{
-		scanf("%d", &opcao);
+		scanf_s("%d", &opcao);
 
 		switch (opcao)
 		{
@@ -48,6 +63,8 @@ void Menu()
 			break;
 		case 2:
 			Regras();
+			break;
+		default:
 			break;
 		}
 	}

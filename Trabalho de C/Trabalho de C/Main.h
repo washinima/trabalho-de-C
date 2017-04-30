@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <locale.h>
+#include <stdbool.h>
 
 
 #define SIZE 8
@@ -15,8 +16,8 @@ typedef struct Coordenadas {
 //Vetor			= Movimento		//para entender melhor o código
 typedef Coordenadas Vetor;
 
-
 //---------------------------------------------------------
+
 typedef struct Peca {
 	int numPeca;				//1  2  3  4  5  6  7  8 / 9  10 11 12 13 14 15 16 <--- demonstração dos números de cada peça no tabuleiro
 	char* tipo;					//peão, rei, peão "melhorado"
@@ -28,8 +29,8 @@ typedef Peca *PecaPtr;
 typedef PecaPtr Tabuleiro[SIZE][SIZE];
 typedef Tabuleiro *TabuleiroPtr;
 
-
 //---------------------------------------------------------
+
 typedef struct Jogadas {
 	PecaPtr peca;
 	Coordenadas movimento;
@@ -38,13 +39,24 @@ typedef struct Jogadas {
 
 typedef Jogadas *JogadasPtr;
 
+//---------------------------------------------------------
+
+typedef struct Player {
+	char* nome;
+	bool player; // True para Player1 e false para Player2
+	JogadasPtr listaJogadas;
+	PecaPtr listaPecas;
+}Player;
+
+typedef Player *PlayerPtr;
 
 //---------------------------------------------------------
 
+
 //BOARD
 TabuleiroPtr CreateBoard();
-PecaPtr CriarPeao(int numPeca, int x, int y);
-PecaPtr CriarRei(int numPeca, int x, int y);
+PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer1);
+PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer1);
 void Jogar();
 
 
