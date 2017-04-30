@@ -82,6 +82,33 @@ void Jogar()
 	ImprimirTabuleiro(a);
 }
 
+
+PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
+{
+	if (EncontraPeca((*board)[x][y], listaPecas) == true)
+		return (*board)[x][y];
+	return NULL;
+}
+
+bool VerificarJogada(PecaPtr peca, Vetor movimento)
+{
+	//Peoes e Rei
+	if (strcmp(peca->tipo, "peao") == 0 || strcmp(peca->tipo, "rei") == 0)
+	{
+		if (movimento.X == 1 || movimento.X == -1 || movimento.X == 0)
+			if (movimento.Y == 1 || movimento.Y == -1 || movimento.Y == 0)
+				return true;
+		return false;
+	}
+	/*else if(strcmp((peca->tipo), "rainha"))
+	{
+		if(movimento.X == 0)
+			if(movimento.Y > )
+	}*/
+	return false;
+}
+
+
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada)
 {
 

@@ -1,4 +1,5 @@
 #include "Main.h"
+#include <string.h>
 
 
 /*
@@ -22,6 +23,29 @@ JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento)
 	nova->next = NULL;
 	return nova;
 }
+
+bool ComparaPecas(PecaPtr peca1, PecaPtr peca2)
+{
+	if (peca1->posicao.X == peca2->posicao.X)
+		if (peca1->posicao.Y == peca2->posicao.Y)
+			if (strcmp(peca1->tipo, peca2->tipo) == 0)
+				return true;
+	return false;
+}
+
+
+bool EncontraPeca(PecaPtr peca, PecaPtr head)
+{
+	PecaPtr aux = head;
+	while(!aux)
+	{
+		if (ComparaPecas(peca, aux) == true)
+			return true;
+		aux = aux->next;
+	}
+	return false;
+}
+
 
 
 /*

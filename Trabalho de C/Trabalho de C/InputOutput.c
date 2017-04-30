@@ -2,14 +2,26 @@
 
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 {
-	if(player->player == false)
+	int x, y, x1, y1;
+	Vetor movimento;
+	printf("Que Peça quer mexer?\nEscreva as Coordenadas\n");
+	scanf_s("%d %d", &x, &y);
+
+	PecaPtr aux = RetirarPeca(board, x, y, player->listaPecas);
+	
+	do 
 	{
-		
-	}
+	printf("Para onde a quer mexer?\nEscreva as Coordenadas\n");
+	scanf_s("%d %d", &x1, &y1);
 
+	movimento.X = x1;
+	movimento.Y = y1;
+	}while(!VerificarJogada(aux, movimento));
 
-
-
+	JogadasPtr jogada = (JogadasPtr)malloc(sizeof(Jogadas));
+	jogada->peca = aux;
+	jogada->movimento.X = x1-x;
+	jogada->movimento.Y = y1-y;
 	return NULL;
 }
 

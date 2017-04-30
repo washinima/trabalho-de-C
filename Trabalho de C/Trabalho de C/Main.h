@@ -22,7 +22,8 @@ typedef struct Peca {
 	int numPeca;				//1  2  3  4  5  6  7  8 / 9  10 11 12 13 14 15 16 <--- demonstração dos números de cada peça no tabuleiro
 	char* tipo;					//peão, rei, peão "melhorado"
 	char visualPeca;
-	Coordenadas posicao;			// o peao melhorado eu estava a pensar transformar tipo num cavalo e ser sempre a melhorar
+	Coordenadas posicao;		// o peao melhorado eu estava a pensar transformar tipo num cavalo e ser sempre a melhorar
+	struct Peca *next;
 }Peca;
 
 typedef Peca *PecaPtr;
@@ -58,6 +59,8 @@ TabuleiroPtr CreateBoard();
 PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer1);
 PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer1);
 void Jogar();
+PecaPtr RetirarPeca(TabuleiroPtr board, int x, int y, PecaPtr listaPecas);
+bool VerificarJogada(PecaPtr peca, Vetor movimento);
 
 
 //LISTAS
@@ -65,6 +68,7 @@ JogadasPtr IniciaLista();
 JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento);
 JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo);
 void FreeLista(JogadasPtr head);
+bool EncontraPeca(PecaPtr peca, PecaPtr head);
 
 
 //IMPRESSÃO
