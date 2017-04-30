@@ -11,7 +11,7 @@ typedef struct Coordenadas {
 	int Y;
 }Coordenadas;
 
-//Coordenadas	= Posição
+//Coordenadas	= Posiç ão
 //Vetor			= Movimento		//para entender melhor o código
 typedef Coordenadas Vetor;
 
@@ -45,6 +45,7 @@ typedef Jogadas *JogadasPtr;
 TabuleiroPtr CreateBoard();
 PecaPtr CriarPeao(int numPeca, int x, int y);
 PecaPtr CriarRei(int numPeca, int x, int y);
+void Jogar();
 
 
 //LISTAS
@@ -56,3 +57,5 @@ void FreeLista(JogadasPtr head);
 
 //IMPRESSÃO
 void ImprimirTabuleiro(TabuleiroPtr board);
+
+void Menu();

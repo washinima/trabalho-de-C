@@ -3,10 +3,12 @@
 int main()
 {
 	setlocale(LC_ALL, "Portuguese");
-	TabuleiroPtr board = CreateBoard();
+	/*TabuleiroPtr board = CreateBoard();
 	ImprimirTabuleiro(board);
-	//PecaPtr a = CriarPeao();
-	//printf("%s", a->tipo);
+	PecaPtr a = CriarPeao();
+	printf("%s", a->tipo);
+	*/
 
+	Menu();
 	return 0;
 }

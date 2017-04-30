@@ -68,3 +68,9 @@ PecaPtr CriarRei(int numPeca, int x, int y)
 
 	return rei;
 }
+
+void Jogar()
+{
+	TabuleiroPtr a = CreateBoard();
+	ImprimirTabuleiro(a);
+}
