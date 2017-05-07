@@ -1,32 +1,52 @@
 #include "Main.h"
 
+
+/*
+ * Funçao que pede ao jogador a sua jogada;
+ */
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 {
 	int x, y, x1, y1;
 	Vetor movimento;
-	printf("Que Peça quer mexer?\nEscreva as Coordenadas\n");
-	scanf_s("%d %d", &x, &y);
+	PecaPtr aux;
 
-	PecaPtr aux = RetirarPeca(board, x, y, player->listaPecas);
-	
+	do
+	{
+		printf("Que Peça quer mexer?\nEscreva as Coordenadas\n");
+		scanf_s("%d %d", &x, &y);
+
+		aux = RetirarPeca(board, x, y, player->listaPecas);
+		if(aux == NULL)
+		{
+			printf("Peca nao Premitida");
+		}
+	}
+	while (aux != NULL);
+
 	do 
 	{
-	printf("Para onde a quer mexer?\nEscreva as Coordenadas\n");
-	scanf_s("%d %d", &x1, &y1);
+		printf("Para onde a quer mexer?\nEscreva as Coordenadas\n");
+		scanf_s("%d %d", &x1, &y1);
 
-	movimento.X = x1;
-	movimento.Y = y1;
+		movimento.X = x1;
+		movimento.Y = y1;
+		if (!VerificarJogada(aux, movimento))
+		{
+			printf("Jogada Invalida. Escreva outravez");
+		}
 	}while(!VerificarJogada(aux, movimento));
 
-	JogadasPtr jogada = (JogadasPtr)malloc(sizeof(Jogadas));
-	jogada->peca = aux;
-	jogada->movimento.X = x1-x;
-	jogada->movimento.Y = y1-y;
-	return NULL;
+	JogadasPtr jogada = NovaJogada(aux, movimento);
+
+	player->listaJogadas = Inserir(player->listaJogadas, jogada);
+
+	return jogada;
 }
 
 
-
+/*
+ * Funçao que imprime o tabuleiro
+ */
 void ImprimirTabuleiro(TabuleiroPtr board)
 {
 	printf("+---+---+---+---+---+---+---+---+\n");		//com printf dá erro????
@@ -46,6 +66,10 @@ void ImprimirTabuleiro(TabuleiroPtr board)
 	}
 }
 
+
+/*
+ * Funçao que Imprime as Regras do Jogo
+ */
 void Regras()
 {
 	printf("Este jogo e uma versao do Xadrez em que o jogador começa so com Peoes e o Rei\n");
@@ -55,7 +79,9 @@ void Regras()
 }
 
 
-
+/*
+ * Funçao que controla o Menu de Jogo
+ */
 void Menu()
 {
 	printf("####################\n");

@@ -7,14 +7,17 @@
 #define SIZE 8
 
 //---------------------------------------------------------
+
 typedef struct Coordenadas {
 	int X;
 	int Y;
 }Coordenadas;
 
-//Coordenadas	= Posiç ão
-//Vetor			= Movimento		//para entender melhor o código
 typedef Coordenadas Vetor;
+
+
+//Coordenadas	= Posição
+//Vetor			= Movimento		//para entender melhor o código
 
 //---------------------------------------------------------
 
@@ -58,9 +61,10 @@ typedef Player *PlayerPtr;
 TabuleiroPtr CreateBoard();
 PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer1);
 PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer1);
-void Jogar();
 PecaPtr RetirarPeca(TabuleiroPtr board, int x, int y, PecaPtr listaPecas);
+TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada);
 bool VerificarJogada(PecaPtr peca, Vetor movimento);
+void Jogar();
 
 
 //LISTAS
@@ -72,6 +76,8 @@ bool EncontraPeca(PecaPtr peca, PecaPtr head);
 
 
 //IMPRESSÃO
-void ImprimirTabuleiro(TabuleiroPtr board);
 
+JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player);
+void ImprimirTabuleiro(TabuleiroPtr board);
+void Regras();
 void Menu();

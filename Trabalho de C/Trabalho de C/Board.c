@@ -76,11 +76,6 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
 	return rei;
 }
 
-void Jogar()
-{
-	TabuleiroPtr a = CreateBoard();
-	ImprimirTabuleiro(a);
-}
 
 
 PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
@@ -109,8 +104,28 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
 }
 
 
-TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada)
+TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player)
 {
-
+	int x = jogada->peca->posicao.X, y = jogada->peca->posicao.Y;
+	(*board)[x + jogada->movimento.X][y + jogada->movimento.Y] = (*board)[x][y];
+	(*board)[x][y] = NULL;
 	return board;
+}
+
+void Jogar()
+{
+	/*
+	 * Fazer funçao para criar jogadores. 
+	 * Criar os dois jogadores aqui.
+	 * Modificar a CreateBoard para ter os dois jogadores.
+	 * Fazer uma funçao que verifica se acabou o jogo.
+	 * 
+	 * 
+	 * Montar a Jogar com as funçoes que temos
+	 * 
+	 * Maquina de Estados a correr isto ate acabar o jogo
+	 * Imprimir o Tabuleiro -> Escolher a Jogada -> Fazer a Jogada -> Passar o Turno
+	 */
+	TabuleiroPtr a = CreateBoard();
+	ImprimirTabuleiro(a);
 }

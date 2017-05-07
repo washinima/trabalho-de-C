@@ -15,7 +15,7 @@ JogadasPtr IniciaLista()
 /*
 Função que aloca memória para uma nova jogada
 */
-JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento)
+JogadasPtr NovaJogada(PecaPtr peca, Vetor movimento)
 {
 	JogadasPtr nova = (JogadasPtr)malloc(sizeof(Jogadas));
 	nova->peca = peca;
