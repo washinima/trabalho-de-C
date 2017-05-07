@@ -1,7 +1,10 @@
 #include "Main.h"
 #include <string.h>
 
-
+/*
+ * Funçao que cria o Tabuleiro e mete as peças em cada jogador respetivamente
+ *		Ainda nao esta acabada
+ */
 TabuleiroPtr CreateBoard()
 {
 
@@ -77,7 +80,9 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
 }
 
 
-
+/*
+ * Retorna o apontador para a peça se esta estiver numa lista 
+ */
 PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
 {
 	if (EncontraPeca((*board)[x][y], listaPecas) == true)
@@ -85,6 +90,12 @@ PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
 	return NULL;
 }
 
+/*
+ * Funçao que verifica o se a jogada esta valida dependendo do tipo de peça
+ *			Ainda nao esta acabada
+ *				Falta verificar se ela sai do campo
+ *				E o acrescentar o codigo para outros tipos de peça
+ */
 bool VerificarJogada(PecaPtr peca, Vetor movimento)
 {
 	//Peoes e Rei
@@ -103,7 +114,10 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
 	return false;
 }
 
-
+/*
+ * Funçao que mexe a Peça.
+ *		Falta meter a peça a comer outra, caso esteja la.
+ */
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player)
 {
 	int x = jogada->peca->posicao.X, y = jogada->peca->posicao.Y;
@@ -112,6 +126,9 @@ TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player)
 	return board;
 }
 
+/*
+ * Funçao que controla o jogo
+ */
 void Jogar()
 {
 	/*

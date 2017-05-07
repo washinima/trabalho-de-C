@@ -24,6 +24,9 @@ JogadasPtr NovaJogada(PecaPtr peca, Vetor movimento)
 	return nova;
 }
 
+/*
+ * Funçao que compara duas peças
+ */
 bool ComparaPecas(PecaPtr peca1, PecaPtr peca2)
 {
 	if (peca1->posicao.X == peca2->posicao.X)
@@ -33,7 +36,9 @@ bool ComparaPecas(PecaPtr peca1, PecaPtr peca2)
 	return false;
 }
 
-
+/*
+ * Funçao que encontra uma peça numa lista
+ */
 bool EncontraPeca(PecaPtr peca, PecaPtr head)
 {
 	PecaPtr aux = head;
@@ -45,8 +50,6 @@ bool EncontraPeca(PecaPtr peca, PecaPtr head)
 	}
 	return false;
 }
-
-
 
 /*
 Funcão que insere a jogada mais recente na última posição da lista de jogadas
