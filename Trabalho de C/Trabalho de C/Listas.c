@@ -54,7 +54,7 @@ bool EncontraPeca(PecaPtr peca, PecaPtr head)
 /*
 Funcão que insere a jogada mais recente na última posição da lista de jogadas
 */
-JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
+JogadasPtr InserirJogada(JogadasPtr head, JogadasPtr novo)
 {
 	JogadasPtr aux = head;
 	if (head == NULL) head = novo;
@@ -68,6 +68,22 @@ JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo)
 	}
 
 	return head;
+}
+
+/*
+Funcão que insere a peça mais recente na última posição da lista de peças dos jogadores
+*/
+PecaPtr InserirPeca(PecaPtr peca, PlayerPtr player)
+{
+	PecaPtr aux = player->listaPecas;
+	if (player->listaPecas == NULL) return peca;
+		while (!aux->next)
+		{
+			aux = aux->next;
+		}
+		aux->next = peca;
+
+	return player->listaPecas;
 }
 
 

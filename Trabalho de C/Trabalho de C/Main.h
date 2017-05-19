@@ -46,7 +46,6 @@ typedef Jogadas *JogadasPtr;
 //---------------------------------------------------------
 
 typedef struct Player {
-	char* nome;
 	bool player; // True para Player1 e false para Player2
 	JogadasPtr listaJogadas;
 	PecaPtr listaPecas;
@@ -58,19 +57,20 @@ typedef Player *PlayerPtr;
 
 
 //BOARD
-TabuleiroPtr CreateBoard();
+TabuleiroPtr CreateBoard(PlayerPtr player1, PlayerPtr player2);
 PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer1);
 PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer1);
 PecaPtr RetirarPeca(TabuleiroPtr board, int x, int y, PecaPtr listaPecas);
-TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada);
+TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo);
 bool VerificarJogada(PecaPtr peca, Vetor movimento);
 void Jogar();
 
 
 //LISTAS
 JogadasPtr IniciaLista();
-JogadasPtr NovaJogada(PecaPtr peca, Coordenadas movimento);
-JogadasPtr Inserir(JogadasPtr head, JogadasPtr novo);
+JogadasPtr NovaJogada(PecaPtr peca, Vetor movimento);
+JogadasPtr InserirJogada(JogadasPtr head, JogadasPtr novo);
+PecaPtr InserirPeca(PecaPtr peca, PlayerPtr player);
 void FreeLista(JogadasPtr head);
 bool EncontraPeca(PecaPtr peca, PecaPtr head);
 

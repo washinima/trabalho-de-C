@@ -38,7 +38,7 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 
 	JogadasPtr jogada = NovaJogada(aux, movimento);
 
-	player->listaJogadas = Inserir(player->listaJogadas, jogada);
+	player->listaJogadas = InserirJogada(player->listaJogadas, jogada);
 
 	return jogada;
 }

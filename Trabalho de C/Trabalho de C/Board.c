@@ -3,13 +3,13 @@
 
 /*
  * Funçao que cria o Tabuleiro e mete as peças em cada jogador respetivamente
- *		Ainda nao esta acabada
  */
-TabuleiroPtr CreateBoard()
+TabuleiroPtr CreateBoard(PlayerPtr player1, PlayerPtr player2)
 {
 
 	TabuleiroPtr board = (TabuleiroPtr)malloc(sizeof(Tabuleiro));
 	int numPeca = 1;
+	PecaPtr rei, peao;
 	//(*board)[1][1] = a;
 
 	for (int x = 0; x < SIZE; x++)					//x = linhas
@@ -18,20 +18,35 @@ TabuleiroPtr CreateBoard()
 		{
 			if ((x == 0 || x == 7) && y == 4)
 			{
-				if(x == 0)
-					(*board)[x][y] = CriarRei(numPeca, x, y, false);
+				if (x == 0)
+				{
+					rei = CriarRei(numPeca, x, y, false);
+					(*board)[x][y] = rei;
+					player2->listaPecas = InserirPeca(rei, player2);
+				}
 				else
-					(*board)[x][y] = CriarRei(numPeca, x, y, true);
+				{
+					rei = CriarRei(numPeca, x, y, true);
+					(*board)[x][y] = rei;
+					player1->listaPecas = InserirPeca(rei, player1);
+				}
 				numPeca++;
 			}
 
 			else if (x <= 1 || x >= 6)
 			{
 				if (x <= 1)
-					(*board)[x][y] = CriarPeao(numPeca, x, y, false);
+				{
+					peao = CriarPeao(numPeca, x, y, false);
+					(*board)[x][y] = peao;
+					player2->listaPecas = InserirPeca(peao, player2);
+				}
 				else
-					(*board)[x][y] = CriarPeao(numPeca, x, y, true);
-				
+				{
+					peao = CriarPeao(numPeca, x, y, true);
+					(*board)[x][y] = peao;
+					player1->listaPecas= InserirPeca(peao, player1);
+				}
 				numPeca++;
 			}
 
@@ -118,7 +133,7 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
  * Funçao que mexe a Peça.
  *		Falta meter a peça a comer outra, caso esteja la.
  */
-TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player)
+TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo)
 {
 	int x = jogada->peca->posicao.X, y = jogada->peca->posicao.Y;
 	(*board)[x + jogada->movimento.X][y + jogada->movimento.Y] = (*board)[x][y];
@@ -127,22 +142,37 @@ TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player)
 }
 
 /*
+ * Funçao que cria o jogador
+ */
+PlayerPtr CriarJogador(bool isPlayer)
+{
+	PlayerPtr a = (PlayerPtr)malloc(sizeof(Player));
+	a->listaJogadas = NULL;
+	a->listaPecas = NULL;
+	a->player = isPlayer;
+
+	return a;
+}
+
+/*
  * Funçao que controla o jogo
  */
 void Jogar()
 {
 	/*
-	 * Fazer funçao para criar jogadores. 
-	 * Criar os dois jogadores aqui.
-	 * Modificar a CreateBoard para ter os dois jogadores.
+	 * Fazer funçao para criar jogadores - done
+	 * Criar os dois jogadores aqui - done 
+	 * Modificar a CreateBoard para ter os dois jogadores - done
 	 * Fazer uma funçao que verifica se acabou o jogo.
-	 * 
 	 * 
 	 * Montar a Jogar com as funçoes que temos
 	 * 
 	 * Maquina de Estados a correr isto ate acabar o jogo
 	 * Imprimir o Tabuleiro -> Escolher a Jogada -> Fazer a Jogada -> Passar o Turno
 	 */
-	TabuleiroPtr a = CreateBoard();
+	PlayerPtr player1 = CriarJogador(true);
+	PlayerPtr player2 = CriarJogador(false);
+
+	TabuleiroPtr a = CreateBoard(player1,player2);
 	ImprimirTabuleiro(a);
 }
