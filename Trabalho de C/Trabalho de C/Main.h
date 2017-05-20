@@ -63,16 +63,19 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer1);
 PecaPtr RetirarPeca(TabuleiroPtr board, int x, int y, PecaPtr listaPecas);
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo);
 bool VerificarJogada(PecaPtr peca, Vetor movimento);
-void Jogar();
+PlayerPtr CriarJogador(bool isPlayer);
+bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2);
+
 
 
 //LISTAS
 JogadasPtr IniciaLista();
 JogadasPtr NovaJogada(PecaPtr peca, Vetor movimento);
 JogadasPtr InserirJogada(JogadasPtr head, JogadasPtr novo);
-PecaPtr InserirPeca(PecaPtr peca, PlayerPtr player);
+PecaPtr InserirPeca(PecaPtr peca, PecaPtr head);
 void FreeLista(JogadasPtr head);
 bool EncontraPeca(PecaPtr peca, PecaPtr head);
+bool EncontraRei(PecaPtr head);
 
 
 //IMPRESSÃO
@@ -80,4 +83,5 @@ bool EncontraPeca(PecaPtr peca, PecaPtr head);
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player);
 void ImprimirTabuleiro(TabuleiroPtr board);
 void Regras();
+void Jogar();
 void Menu();

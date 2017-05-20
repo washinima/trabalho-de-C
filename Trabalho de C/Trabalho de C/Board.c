@@ -22,30 +22,29 @@ TabuleiroPtr CreateBoard(PlayerPtr player1, PlayerPtr player2)
 				{
 					rei = CriarRei(numPeca, x, y, false);
 					(*board)[x][y] = rei;
-					player2->listaPecas = InserirPeca(rei, player2);
+					player2->listaPecas = InserirPeca(rei, player2->listaPecas);
 				}
 				else
 				{
 					rei = CriarRei(numPeca, x, y, true);
 					(*board)[x][y] = rei;
-					player1->listaPecas = InserirPeca(rei, player1);
+					player1->listaPecas = InserirPeca(rei, player1->listaPecas);
 				}
 				numPeca++;
 			}
-
 			else if (x <= 1 || x >= 6)
 			{
 				if (x <= 1)
 				{
 					peao = CriarPeao(numPeca, x, y, false);
 					(*board)[x][y] = peao;
-					player2->listaPecas = InserirPeca(peao, player2);
+					player2->listaPecas = InserirPeca(peao, player2->listaPecas);
 				}
 				else
 				{
 					peao = CriarPeao(numPeca, x, y, true);
 					(*board)[x][y] = peao;
-					player1->listaPecas= InserirPeca(peao, player1);
+					player1->listaPecas= InserirPeca(peao, player1->listaPecas);
 				}
 				numPeca++;
 			}
@@ -72,7 +71,7 @@ PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer)
 	else peao->visualPeca = 'c';
 	char* a = "Peao";
 	peao->tipo = a;
-
+	peao->next = NULL;
 	return peao;
 }
 
@@ -90,6 +89,7 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
 	else rei->visualPeca = 'O';
 	char* a = "Rei";
 	rei->tipo = a;
+	rei->next = NULL;
 
 	return rei;
 }
@@ -100,7 +100,7 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
  */
 PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
 {
-	if (EncontraPeca((*board)[x][y], listaPecas) == true)
+	if (EncontraPeca((*board)[x][y], listaPecas))
 		return (*board)[x][y];
 	return NULL;
 }
@@ -114,10 +114,10 @@ PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
 bool VerificarJogada(PecaPtr peca, Vetor movimento)
 {
 	//Peoes e Rei
-	if (strcmp(peca->tipo, "peao") == 0 || strcmp(peca->tipo, "rei") == 0)
+	if (strcmp(peca->tipo, "Peao") == 0 || strcmp(peca->tipo, "Rei") == 0)
 	{
-		if (movimento.X == 1 || movimento.X == -1 || movimento.X == 0)
-			if (movimento.Y == 1 || movimento.Y == -1 || movimento.Y == 0)
+		if (movimento.X == 1 || (movimento.X == -1 || movimento.X == 0))
+			if (movimento.Y == 1 || (movimento.Y == -1 || movimento.Y == 0))
 				return true;
 		return false;
 	}
@@ -155,24 +155,13 @@ PlayerPtr CriarJogador(bool isPlayer)
 }
 
 /*
- * Funçao que controla o jogo
+ * Funçao que verifica o fim do jogo. Ou seja um jogador nao ter rei.
  */
-void Jogar()
+bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2)
 {
-	/*
-	 * Fazer funçao para criar jogadores - done
-	 * Criar os dois jogadores aqui - done 
-	 * Modificar a CreateBoard para ter os dois jogadores - done
-	 * Fazer uma funçao que verifica se acabou o jogo.
-	 * 
-	 * Montar a Jogar com as funçoes que temos
-	 * 
-	 * Maquina de Estados a correr isto ate acabar o jogo
-	 * Imprimir o Tabuleiro -> Escolher a Jogada -> Fazer a Jogada -> Passar o Turno
-	 */
-	PlayerPtr player1 = CriarJogador(true);
-	PlayerPtr player2 = CriarJogador(false);
-
-	TabuleiroPtr a = CreateBoard(player1,player2);
-	ImprimirTabuleiro(a);
+	if(!EncontraRei(pl1->listaPecas) || !EncontraRei(pl2->listaPecas))
+	{
+		return true;
+	}
+	return false;
 }

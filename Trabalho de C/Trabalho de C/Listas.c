@@ -41,15 +41,34 @@ bool ComparaPecas(PecaPtr peca1, PecaPtr peca2)
  */
 bool EncontraPeca(PecaPtr peca, PecaPtr head)
 {
-	PecaPtr aux = head;
-	while(!aux)
+	if (head == NULL) head = peca;
+	else
 	{
-		if (ComparaPecas(peca, aux) == true)
-			return true;
-		aux = aux->next;
+		PecaPtr aux = head;
+		while (aux->next != NULL)
+		{
+			if (ComparaPecas(peca, aux) == true)
+				return true;
+			aux = aux->next;
+		}
+		aux->next = peca;
 	}
 	return false;
 }
+
+
+
+bool EncontraRei(PecaPtr head)
+{
+	while (head != NULL)
+	{
+		if (strcmp(head->tipo,"Rei") == 0)
+			return true;
+		head = head->next;
+	}
+	return false;
+}
+
 
 /*
 Funcão que insere a jogada mais recente na última posição da lista de jogadas
@@ -73,17 +92,19 @@ JogadasPtr InserirJogada(JogadasPtr head, JogadasPtr novo)
 /*
 Funcão que insere a peça mais recente na última posição da lista de peças dos jogadores
 */
-PecaPtr InserirPeca(PecaPtr peca, PlayerPtr player)
-{
-	PecaPtr aux = player->listaPecas;
-	if (player->listaPecas == NULL) return peca;
-		while (!aux->next)
+PecaPtr InserirPeca(PecaPtr peca, PecaPtr head)
+{	
+	if (head == NULL) head = peca;
+	else
+	{
+		PecaPtr aux = head;
+		while (aux->next != NULL)
 		{
 			aux = aux->next;
 		}
 		aux->next = peca;
-
-	return player->listaPecas;
+	}
+	return head;
 }
 
 
