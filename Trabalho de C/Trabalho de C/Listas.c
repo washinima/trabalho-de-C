@@ -109,6 +109,46 @@ PecaPtr InserirPeca(PecaPtr peca, PecaPtr head)
 
 
 /*
+ * Funçao para Eliminar uma peça da lista do jogador
+ */
+PecaPtr EliminarPeca(PecaPtr peca, PecaPtr head)
+{
+	if (!head)	
+	{
+		return head;
+	}
+	else {
+		PecaPtr aux = head;
+		PecaPtr aux2 = aux;
+		//Procura onde eliminar		
+		while (aux != NULL && !ComparaPecas(peca, aux))
+		{
+			aux2 = aux;
+			aux = aux->next;
+		}
+
+		//se é no início
+		if (aux == head)
+		{
+			aux = head;
+			head = head->next;
+			free(aux);
+		}
+		//se é no meio
+		else
+		{
+			if (aux != NULL) {
+				aux2->next = aux->next;
+				free(aux);
+			}
+
+		}
+	}
+
+	return head;
+}
+
+/*
 Função para libertar a lista de jogadas da memória
 */
 void FreeLista(JogadasPtr head)

@@ -135,9 +135,26 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
  */
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo)
 {
+	/*
+	 * Retirar a peca a ser comida do board; Verificar de que jogador e. Se for do inimigo simplesmente come. Se for uma propria come e Verifica a evoluçao
+	 */
 	int x = jogada->peca->posicao.X, y = jogada->peca->posicao.Y;
+
+	PecaPtr comida = (*board)[x + jogada->movimento.X][y + jogada->movimento.Y];
+
+	if(EncontraPeca(comida, player->listaPecas))
+	{
+		jogada->peca = Evolui(jogada->peca, comida);
+		player->listaPecas = EliminarPeca(comida, player->listaPecas);
+	}
+	else if(EncontraPeca(comida, playerInimigo->listaPecas))
+	{
+		playerInimigo->listaPecas = EliminarPeca(comida, playerInimigo->listaPecas);
+	}
+
 	(*board)[x + jogada->movimento.X][y + jogada->movimento.Y] = (*board)[x][y];
 	(*board)[x][y] = NULL;
+
 	return board;
 }
 
@@ -164,4 +181,35 @@ bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2)
 		return true;
 	}
 	return false;
+}
+
+/*
+ * Funçao que "evolui" uma peça dependendo do que ela comeu.
+ *			Peao come peao -> 50/50 entre Bispo e Torre
+ *			Bispo come Torre -> Rainha
+ *			Torre come Bispo -> Rainha
+ */
+PecaPtr Evolui(PecaPtr peca, PecaPtr comida)
+{
+	srand(time(NULL));
+	int random = rand();
+	if (strcmp(peca->tipo, "Peao") == 0)
+	{
+		if (strcmp(comida->tipo, "Peao") == 0)
+			if (random == 1)
+				peca->tipo = "Torre";
+			else peca->tipo = "Bispo";
+	}
+	else if (strcmp(peca->tipo, "Bispo") == 0)
+	{
+		if (strcmp(comida->tipo, "Torre") == 0)
+			peca->tipo = "Rainha";
+	}
+	else if (strcmp(peca->tipo, "Torre") == 0)
+	{
+		if (strcmp(comida->tipo, "Bispo") == 0)
+			peca->tipo = "Rainha";
+	}
+
+	return peca;
 }

@@ -2,7 +2,13 @@
 #include <stdio.h>
 #include <locale.h>
 #include <stdbool.h>
+#include <time.h>
 
+#ifndef A
+#define A
+
+
+#define RAND_MAX 1
 
 #define SIZE 8
 
@@ -65,6 +71,7 @@ TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, 
 bool VerificarJogada(PecaPtr peca, Vetor movimento);
 PlayerPtr CriarJogador(bool isPlayer);
 bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2);
+PecaPtr Evolui(PecaPtr peca, PecaPtr comida);
 
 
 
@@ -76,6 +83,7 @@ PecaPtr InserirPeca(PecaPtr peca, PecaPtr head);
 void FreeLista(JogadasPtr head);
 bool EncontraPeca(PecaPtr peca, PecaPtr head);
 bool EncontraRei(PecaPtr head);
+PecaPtr EliminarPeca(PecaPtr peca, PecaPtr head);
 
 
 //IMPRESSÃO
@@ -85,3 +93,5 @@ void ImprimirTabuleiro(TabuleiroPtr board);
 void Regras();
 void Jogar();
 void Menu();
+
+#endif
