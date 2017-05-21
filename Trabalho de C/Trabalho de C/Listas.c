@@ -41,6 +41,8 @@ bool ComparaPecas(PecaPtr peca1, PecaPtr peca2)
  */
 bool EncontraPeca(PecaPtr peca, PecaPtr head)
 {
+	if (peca == NULL)
+		return false;
 	if (head == NULL) head = peca;
 	else
 	{

@@ -45,7 +45,7 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 		}
 	}while(boola == false);
 	
-	printf("JOGADA");
+	//printf("JOGADA");
 
 	JogadasPtr jogada = NovaJogada(aux, movimento);
 
@@ -112,30 +112,39 @@ void Jogar()
 	*/
 	PlayerPtr player1 = CriarJogador(true);
 	PlayerPtr player2 = CriarJogador(false);
-	TabuleiroPtr a = CreateBoard(player1, player2);
+	TabuleiroPtr board = CreateBoard(player1, player2);
 	bool playing = true;
 
 	////////////////////////////////////////////////////////////////////
 	PlayerPtr currentPlayer = player1, nextPlayer = player2, aux;
 
-	int state = 0;
-	// -1 - quando acaba o jogo
 	while (playing)
 	{
-		ImprimirTabuleiro(a);
+		ImprimirTabuleiro(board);
 		if (currentPlayer->player)
 			printf("Player1\n");
 		else printf("Player2\n");
 
 		fflush(stdin);
-		a = MexerPeca(a, EscolherJogada(a, currentPlayer), currentPlayer, nextPlayer);
+		JogadasPtr jog = EscolherJogada(board, currentPlayer);
 
-		aux = currentPlayer;
+		board = MexerPeca(board,jog , currentPlayer, nextPlayer);
+
+		/*aux = currentPlayer;
 		currentPlayer = nextPlayer;
-		nextPlayer = aux;
+		nextPlayer = aux;*/
 
 		if (VerificaFim(player1, player2))
+		{
 			playing = false;
+
+			if (!EncontraRei(player1->listaPecas))
+				printf("Ganhou o Player2");
+			else
+			{
+				printf("Ganhou o Player1");
+			}
+		}
 	}
 }
 
@@ -145,15 +154,17 @@ void Jogar()
  */
 void Menu()
 {
-	printf("#####################\n");
-	printf("#    1 - Jogar      #\n");
-	printf("#    2 - Regras     #\n");
-	printf("#    3 - Imprime    #\n");
-	printf("#    4 - Sair       #\n");
-	printf("#####################\n");
+	srand(time(NULL));
 	int opcao = 0;
 	while (opcao != 3)
 	{
+		system("cls");
+		printf("#####################\n");
+		printf("#    1 - Jogar      #\n");
+		printf("#    2 - Regras     #\n");
+		printf("#    3 - Imprime    #\n");
+		printf("#    4 - Sair       #\n");
+		printf("#####################\n");
 		scanf_s("%d", &opcao);
 
 		switch (opcao)

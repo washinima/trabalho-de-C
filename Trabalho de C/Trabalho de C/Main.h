@@ -8,7 +8,7 @@
 #define A
 
 
-#define RAND_MAX 1
+#define RAND_MAX 10
 
 #define SIZE 8
 
@@ -71,8 +71,8 @@ TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, 
 bool VerificarJogada(PecaPtr peca, Vetor movimento);
 PlayerPtr CriarJogador(bool isPlayer);
 bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2);
-PecaPtr Evolui(PecaPtr peca, PecaPtr comida);
-
+PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer);
+void visualChange(PecaPtr peca, bool isPlayer);
 
 
 //LISTAS

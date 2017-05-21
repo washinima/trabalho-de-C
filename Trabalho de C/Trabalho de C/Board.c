@@ -67,10 +67,9 @@ PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer)
 	peao->numPeca = numPeca;
 	peao->posicao.X = x;
 	peao->posicao.Y = y;
-	if (!isPlayer) peao->visualPeca = '¢';		//189 em ASCII		alt+189
-	else peao->visualPeca = 'c';
 	char* a = "Peao";
 	peao->tipo = a;
+	visualChange(peao,isPlayer);
 	peao->next = NULL;
 	return peao;
 }
@@ -85,10 +84,9 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
 	rei->numPeca = numPeca;
 	rei->posicao.X = x;
 	rei->posicao.Y = y;
-	if (!isPlayer) rei->visualPeca = 'Ø';		//157 em ASCII		alt+157
-	else rei->visualPeca = 'O';
 	char* a = "Rei";
 	rei->tipo = a;
+	visualChange(rei, isPlayer);
 	rei->next = NULL;
 
 	return rei;
@@ -107,56 +105,106 @@ PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
 
 /*
  * Funçao que verifica o se a jogada esta valida dependendo do tipo de peça
- *			Ainda nao esta acabada
- *				Falta verificar se ela sai do campo
- *				E o acrescentar o codigo para outros tipos de peça
  */
 bool VerificarJogada(PecaPtr peca, Vetor movimento)
 {
+	if (peca->posicao.X + movimento.X >= SIZE || peca->posicao.X + movimento.X < 0)
+		return false;
+	if (peca->posicao.Y + movimento.Y >= SIZE || peca->posicao.Y + movimento.Y < 0)
+		return false;
+
 	//Peoes e Rei
 	if (strcmp(peca->tipo, "Peao") == 0 || strcmp(peca->tipo, "Rei") == 0)
 	{
 		if (movimento.X == 1 || (movimento.X == -1 || movimento.X == 0))
 			if (movimento.Y == 1 || (movimento.Y == -1 || movimento.Y == 0))
 				return true;
-		return false;
 	}
-	/*else if(strcmp((peca->tipo), "rainha"))
+	//Rainha
+	else if(strcmp((peca->tipo), "Rainha"))
 	{
-		if(movimento.X == 0)
-			if(movimento.Y > )
-	}*/
+		if (movimento.Y == movimento.X)
+				return true;
+		if (movimento.X != 0 && movimento.Y == 0)
+			return true;
+		if (movimento.X == 0 && movimento.Y != 0)
+			return true;
+	}
+	//BISPO
+	else if (strcmp((peca->tipo), "Bispo"))
+	{
+		if (movimento.Y == movimento.X)
+			return true;
+	}
+	//Torre
+	else if (strcmp((peca->tipo), "Torre"))
+	{
+		if (movimento.X != 0 && movimento.Y == 0)
+			return true;
+		if (movimento.X == 0 && movimento.Y != 0)
+			return true;
+	}
 	return false;
 }
 
 /*
  * Funçao que mexe a Peça.
- *		Falta meter a peça a comer outra, caso esteja la.
+ *		not working idk why
  */
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo)
 {
-	/*
-	 * Retirar a peca a ser comida do board; Verificar de que jogador e. Se for do inimigo simplesmente come. Se for uma propria come e Verifica a evoluçao
-	 */
 	int x = jogada->peca->posicao.X, y = jogada->peca->posicao.Y;
 
 	PecaPtr comida = (*board)[x + jogada->movimento.X][y + jogada->movimento.Y];
 
-	if(EncontraPeca(comida, player->listaPecas))
+	if (EncontraPeca(comida, player->listaPecas))
 	{
-		jogada->peca = Evolui(jogada->peca, comida);
+		jogada->peca = Evolui(jogada->peca, comida, player->player);
 		player->listaPecas = EliminarPeca(comida, player->listaPecas);
 	}
-	else if(EncontraPeca(comida, playerInimigo->listaPecas))
+	else if (EncontraPeca(comida, playerInimigo->listaPecas))
 	{
 		playerInimigo->listaPecas = EliminarPeca(comida, playerInimigo->listaPecas);
 	}
-
 	(*board)[x + jogada->movimento.X][y + jogada->movimento.Y] = (*board)[x][y];
 	(*board)[x][y] = NULL;
 
 	return board;
 }
+
+/*
+ * Funçao que muda o visual de cada peca
+ */
+void visualChange(PecaPtr peca, bool isPlayer)
+{
+	if(strcmp(peca->tipo, "Peao") == 0)
+	{
+		if (!isPlayer)
+			peca->visualPeca = '¢';
+		else peca->visualPeca = 'c';
+	}
+	else if(strcmp(peca->tipo, "Rei") == 0)
+	{
+		if (!isPlayer) peca->visualPeca = 'Ø';		//157 em ASCII		alt+157
+		else peca->visualPeca = 'O';
+	}
+	else if (strcmp(peca->tipo, "Torre") == 0)
+	{
+		if (!isPlayer) peca->visualPeca = 't';
+		else peca->visualPeca = 'T';
+	}
+	else if (strcmp(peca->tipo, "Bispo") == 0)
+	{
+		if (!isPlayer) peca->visualPeca = 'b';
+		else peca->visualPeca = 'B';
+	}
+	else if (strcmp(peca->tipo, "Rainha") == 0)
+	{
+		if (!isPlayer) peca->visualPeca = 'r';
+		else peca->visualPeca = 'R';
+	}
+}
+
 
 /*
  * Funçao que cria o jogador
@@ -189,26 +237,38 @@ bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2)
  *			Bispo come Torre -> Rainha
  *			Torre come Bispo -> Rainha
  */
-PecaPtr Evolui(PecaPtr peca, PecaPtr comida)
+PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer)
 {
-	srand(time(NULL));
 	int random = rand();
 	if (strcmp(peca->tipo, "Peao") == 0)
 	{
 		if (strcmp(comida->tipo, "Peao") == 0)
-			if (random == 1)
+			if (random > 5)
+			{
 				peca->tipo = "Torre";
-			else peca->tipo = "Bispo";
+				visualChange(peca, isPlayer);
+			}
+			else
+			{
+				peca->tipo = "Bispo"; 
+				visualChange(peca, isPlayer);
+			}
 	}
 	else if (strcmp(peca->tipo, "Bispo") == 0)
 	{
 		if (strcmp(comida->tipo, "Torre") == 0)
-			peca->tipo = "Rainha";
+		{
+			peca->tipo = "Rainha"; 
+			visualChange(peca, isPlayer);
+		}
 	}
 	else if (strcmp(peca->tipo, "Torre") == 0)
 	{
 		if (strcmp(comida->tipo, "Bispo") == 0)
-			peca->tipo = "Rainha";
+		{
+		peca->tipo = "Rainha";
+		visualChange(peca, isPlayer);
+		}
 	}
 
 	return peca;
