@@ -15,10 +15,10 @@ JogadasPtr IniciaLista()
 /*
 Função que aloca memória para uma nova jogada
 */
-JogadasPtr NovaJogada(PecaPtr peca, Vetor movimento)
+JogadasPtr NovaJogada(Coordenadas posicao, Vetor movimento)
 {
 	JogadasPtr nova = (JogadasPtr)malloc(sizeof(Jogadas));
-	nova->peca = peca;
+	nova->posicao = posicao;
 	nova->movimento = movimento;
 	nova->next = NULL;
 	return nova;
@@ -41,25 +41,22 @@ bool ComparaPecas(PecaPtr peca1, PecaPtr peca2)
  */
 bool EncontraPeca(PecaPtr peca, PecaPtr head)
 {
-	if (peca == NULL)
-		return false;
-	if (head == NULL) head = peca;
-	else
+	if (head == NULL || peca == NULL) return false;
+		
+		
+	while (head != NULL)
 	{
-		PecaPtr aux = head;
-		while (aux->next != NULL)
-		{
-			if (ComparaPecas(peca, aux) == true)
-				return true;
-			aux = aux->next;
-		}
-		aux->next = peca;
+		if (ComparaPecas(peca, head) == true)
+			return true;
+		head = head->next;
 	}
 	return false;
 }
 
 
-
+/*
+ * Funçao que encontra o rei na lista. Serve para verificar se acabou o jogo
+ */
 bool EncontraRei(PecaPtr head)
 {
 	while (head != NULL)

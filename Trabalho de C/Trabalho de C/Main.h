@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <stdbool.h>
 #include <time.h>
+#include <string.h>
 
 #ifndef A
 #define A
@@ -42,8 +43,8 @@ typedef Tabuleiro *TabuleiroPtr;
 //---------------------------------------------------------
 
 typedef struct Jogadas {
-	PecaPtr peca;
-	Coordenadas movimento;
+	Coordenadas posicao;
+	Vetor movimento;
 	struct Jogadas *next;
 }Jogadas;
 
@@ -73,11 +74,12 @@ PlayerPtr CriarJogador(bool isPlayer);
 bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2);
 PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer);
 void visualChange(PecaPtr peca, bool isPlayer);
+TabuleiroPtr AtualizaPosicoes(TabuleiroPtr board);
 
 
 //LISTAS
 JogadasPtr IniciaLista();
-JogadasPtr NovaJogada(PecaPtr peca, Vetor movimento);
+JogadasPtr NovaJogada(Coordenadas posicao, Vetor movimento);
 JogadasPtr InserirJogada(JogadasPtr head, JogadasPtr novo);
 PecaPtr InserirPeca(PecaPtr peca, PecaPtr head);
 void FreeLista(JogadasPtr head);
@@ -89,6 +91,7 @@ PecaPtr EliminarPeca(PecaPtr peca, PecaPtr head);
 //IMPRESSÃO
 
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player);
+int AjudaJogadas(TabuleiroPtr board, int x, int y);
 void ImprimirTabuleiro(TabuleiroPtr board);
 void Regras();
 void Jogar();

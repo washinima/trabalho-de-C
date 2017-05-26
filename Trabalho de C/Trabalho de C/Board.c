@@ -153,20 +153,27 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
  */
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo)
 {
-	int x = jogada->peca->posicao.X, y = jogada->peca->posicao.Y;
+	/*
+	 * NAO PODE SALTAR CASAS
+	 */
+	int x = jogada->posicao.X, y = jogada->posicao.Y;
+	int x1 = x + jogada->movimento.X, y1 = y + jogada->movimento.Y;
 
-	PecaPtr comida = (*board)[x + jogada->movimento.X][y + jogada->movimento.Y];
+	PecaPtr comida = (*board)[x1][y1];
 
 	if (EncontraPeca(comida, player->listaPecas))
 	{
-		jogada->peca = Evolui(jogada->peca, comida, player->player);
+		(*board)[x][y] = Evolui((*board)[x][y], comida, player->player);
 		player->listaPecas = EliminarPeca(comida, player->listaPecas);
 	}
 	else if (EncontraPeca(comida, playerInimigo->listaPecas))
 	{
 		playerInimigo->listaPecas = EliminarPeca(comida, playerInimigo->listaPecas);
 	}
-	(*board)[x + jogada->movimento.X][y + jogada->movimento.Y] = (*board)[x][y];
+
+	(*board)[x][y]->posicao.X = x1; (*board)[x][y]->posicao.Y = y1;
+
+	(*board)[x1][y1] = (*board)[x][y];
 	(*board)[x][y] = NULL;
 
 	return board;
@@ -272,4 +279,21 @@ PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer)
 	}
 
 	return peca;
+}
+
+TabuleiroPtr AtualizaPosicoes(TabuleiroPtr board)
+{
+	for (int x = 0; x < SIZE; x++)
+	{
+		for (int y = 0; y < SIZE; y++)
+		{
+			if ((*board)[x][y] != NULL)
+			{
+				(*board)[x][y]->posicao.X = x;
+				(*board)[x][y]->posicao.X = y;
+			}
+		}
+	}
+
+	return board;
 }

@@ -1,15 +1,16 @@
 #include "Main.h"
 
 
+
 /*
  * Funçao que pede ao jogador a sua jogada;
  */
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 {
-	int x, y, x1, y1;
+	int x, y, x1, y1, tmp;
 	Vetor movimento;
 	PecaPtr aux;
-	bool boola;
+	bool auxBool;
 
 	do
 	{
@@ -19,9 +20,19 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 		scanf(" %d", &y);
 
 		aux = RetirarPeca(board, x, y, player->listaPecas);
-		if(aux == NULL)
+		if (aux == NULL)
 		{
 			printf("Peca nao Premitida\n");
+		}
+		else if (strcmp(aux->tipo, "Rei") == 0)
+		{
+			tmp = AjudaJogadas(board, x, y);
+		}
+
+		if(tmp == 0)
+		{
+			printf("Nao ha jogadas possiveis\n");
+			aux = NULL;
 		}
 	}
 	while (aux == NULL);
@@ -38,22 +49,42 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 
 		movimento.X = x1;
 		movimento.Y = y1;
-		boola = VerificarJogada(aux, movimento);
-		if (boola == false)
+		auxBool = VerificarJogada(aux, movimento);
+		if (auxBool == false)
 		{
 			printf("Jogada Invalida. Escreva outravez\n");
 		}
-	}while(boola == false);
+	}while(auxBool == false);
 	
 	//printf("JOGADA");
 
-	JogadasPtr jogada = NovaJogada(aux, movimento);
+	JogadasPtr jogada = NovaJogada(aux->posicao, movimento);
 
 	player->listaJogadas = InserirJogada(player->listaJogadas, jogada);
 
 	return jogada;
 }
 
+int AjudaJogadas(TabuleiroPtr board, int x, int y)
+{
+	//REI
+	/*
+	* -1 -1 | -1  1 | -1  0 | 0 -1 | 0  1 | 1  0 | 1 -1 | 1  1
+	*/
+	int tmp = 0;
+	printf("Possiveis Jogadas:\n");
+	for(int i = -1; i < 2; i++)
+		for(int j = -1; j< 2; j++)
+		{
+			
+			if((*board)[x+i][y+j] == NULL)
+			{
+				tmp++;
+				printf("-> %d %d", i, j);
+			}
+		}
+	return tmp;
+}
 
 /*
  * Funçao que imprime o tabuleiro
@@ -112,6 +143,7 @@ void Jogar()
 	*/
 	PlayerPtr player1 = CriarJogador(true);
 	PlayerPtr player2 = CriarJogador(false);
+
 	TabuleiroPtr board = CreateBoard(player1, player2);
 	bool playing = true;
 
@@ -127,7 +159,7 @@ void Jogar()
 
 		fflush(stdin);
 		JogadasPtr jog = EscolherJogada(board, currentPlayer);
-
+		fflush(stdin);
 		board = MexerPeca(board,jog , currentPlayer, nextPlayer);
 
 		/*aux = currentPlayer;
@@ -145,6 +177,8 @@ void Jogar()
 				printf("Ganhou o Player1");
 			}
 		}
+
+		//board = AtualizaPosicoes(board);
 	}
 }
 
