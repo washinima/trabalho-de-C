@@ -104,9 +104,9 @@ PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
 }
 
 /*
- * Funçao que verifica o se a jogada esta valida dependendo do tipo de peça
+ * Funçao que verifica o se o movimento da peça e valido dependendo do tipo de peça
  */
-bool VerificarJogada(PecaPtr peca, Vetor movimento)
+bool VerificaMovimento(PecaPtr peca, Vetor movimento)
 {
 	if (peca->posicao.X + movimento.X >= SIZE || peca->posicao.X + movimento.X < 0)
 		return false;
@@ -123,7 +123,7 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
 	//Rainha
 	else if(strcmp((peca->tipo), "Rainha"))
 	{
-		if (movimento.Y == movimento.X)
+		if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
 				return true;
 		if (movimento.X != 0 && movimento.Y == 0)
 			return true;
@@ -133,7 +133,7 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
 	//BISPO
 	else if (strcmp((peca->tipo), "Bispo"))
 	{
-		if (movimento.Y == movimento.X)
+		if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
 			return true;
 	}
 	//Torre
@@ -148,14 +148,207 @@ bool VerificarJogada(PecaPtr peca, Vetor movimento)
 }
 
 /*
+ * Funçao que verifica o se a jogada e valida dependendo do tipo de peça. 
+ *		So para as peças que podem Atacar
+ */
+bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
+{
+	int x = peca->posicao.X, y = peca->posicao.Y;
+	int x1 = x + movimento.X, y1 = y + movimento.Y;
+	int i;
+	if(!VerificaMovimento(peca, movimento))
+		return false;
+
+	if(strcmp(peca->tipo, "Peao") == 0)
+	{
+		if(movimento.X == movimento.Y || movimento.X == -movimento.Y) 
+		{
+			return true;
+		}
+		if(movimento.X == 0)
+		{
+			if(movimento.Y == 1)
+			{
+				if ((*board)[x][y + 1] == NULL)
+					return true;
+			}
+			else if (movimento.Y == -1)
+			{
+				if ((*board)[x][y - 1] == NULL)
+					return true;
+			}
+		}
+		else if (movimento.Y == 0)
+		{
+			if (movimento.X == 1)
+			{
+				if ((*board)[x +1][y] == NULL)
+					return true;
+			}
+			else if (movimento.X == -1)
+			{
+				if ((*board)[x-1][y] == NULL)
+					return true;
+			}
+		}
+	}
+	else if (strcmp(peca->tipo, "Rainha") == 0)
+	{
+		if(movimento.X != 0 && movimento.Y == 0)
+		{
+			if (movimento.X > 0)
+			{
+				for (i = 1; i <= movimento.X; i++)
+				{
+					if ((*board)[x + i][y] != NULL)
+						break;
+				}
+				if (i == movimento.X)
+					return true;
+			}
+			if (movimento.X < 0)
+			{
+				for (i = -1; i >= movimento.X ; i--)
+				{
+					if ((*board)[x + i][y] != NULL)
+						break;
+				}
+				if (i == movimento.X)
+					return true;
+			}
+		}
+		else if (movimento.Y != 0 && movimento.X == 0)
+		{
+			if (movimento.Y > 0)
+			{
+				for (i = 1; i <= movimento.Y; i++)
+				{
+					if ((*board)[x][y+i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+			if (movimento.Y < 0)
+			{
+				for (i = -1; i >= movimento.Y; i--)
+				{
+					if ((*board)[x ][y+i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+		}
+		else if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
+		{
+			if (movimento.Y > 0)
+			{
+				for (i = 1; i <= movimento.Y; i++)
+				{
+					if ((*board)[x+i][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+			if (movimento.Y < 0)
+			{
+				for (i = -1; i >= movimento.Y; i--)
+				{
+					if ((*board)[x+i][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+		}
+	}
+	else if (strcmp(peca->tipo, "Torre") == 0)
+	{
+		if (movimento.X != 0 && movimento.Y == 0)
+		{
+			if (movimento.X > 0)
+			{
+				for (i = 1; i <= movimento.X; i++)
+				{
+					if ((*board)[x + i][y] != NULL)
+						break;
+				}
+				if (i == movimento.X)
+					return true;
+			}
+			if (movimento.X < 0)
+			{
+				for (i = -1; i >= movimento.X; i--)
+				{
+					if ((*board)[x + i][y] != NULL)
+						break;
+				}
+				if (i == movimento.X)
+					return true;
+			}
+		}
+		else if (movimento.Y != 0 && movimento.X == 0)
+		{
+			if (movimento.Y > 0)
+			{
+				for (i = 1; i <= movimento.Y; i++)
+				{
+					if ((*board)[x][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+			if (movimento.Y < 0)
+			{
+				for (i = -1; i >= movimento.Y; i--)
+				{
+					if ((*board)[x][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+		}
+	}
+	else if (strcmp(peca->tipo, "Bispo") == 0)
+	{
+		if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
+		{
+			if (movimento.Y > 0)
+			{
+				for (i = 1; i <= movimento.Y; i++)
+				{
+					if ((*board)[x + i][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+			if (movimento.Y < 0)
+			{
+				for (i = -1; i >= movimento.Y; i--)
+				{
+					if ((*board)[x + i][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+		}
+	}
+	return false;
+
+}
+
+
+/*
  * Funçao que mexe a Peça.
- *		not working idk why
  */
 TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, PlayerPtr playerInimigo)
 {
-	/*
-	 * NAO PODE SALTAR CASAS
-	 */
 	int x = jogada->posicao.X, y = jogada->posicao.Y;
 	int x1 = x + jogada->movimento.X, y1 = y + jogada->movimento.Y;
 

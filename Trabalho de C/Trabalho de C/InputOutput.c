@@ -15,9 +15,10 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 	do
 	{
 		printf("Que Peça quer mexer? \nEscreva as Coordenadas\n");
-		scanf(" %d", &x);
 		fflush(stdin);
 		scanf(" %d", &y);
+		fflush(stdin);
+		scanf(" %d", &x);
 
 		aux = RetirarPeca(board, x, y, player->listaPecas);
 		if (aux == NULL)
@@ -27,29 +28,28 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 		else if (strcmp(aux->tipo, "Rei") == 0)
 		{
 			tmp = AjudaJogadas(board, x, y);
-		}
 
-		if(tmp == 0)
-		{
-			printf("Nao ha jogadas possiveis\n");
-			aux = NULL;
+			if (tmp == 0)
+			{
+				printf("Nao ha jogadas possiveis\n");
+				aux = NULL;
+			}
 		}
 	}
 	while (aux == NULL);
 
 	do 
 	{
-		printf("Para onde a quer mexer?\nEscreva o Movimento\n");
+		printf("Para onde a quer mexer?\nEscreva as Coordenadas\n");
 		fflush(stdin);
-
-		scanf(" %d", &x1);
-		fflush(stdin);
-
 		scanf(" %d", &y1);
-
-		movimento.X = x1;
-		movimento.Y = y1;
-		auxBool = VerificarJogada(aux, movimento);
+		fflush(stdin);
+		scanf(" %d", &x1);
+		int x2 = x1 - x;
+		int y2 = y1 - y;
+		movimento.X = x2;
+		movimento.Y = y2;
+		auxBool = VerificarJogada(board, movimento, aux);
 		if (auxBool == false)
 		{
 			printf("Jogada Invalida. Escreva outravez\n");
@@ -65,6 +65,9 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 	return jogada;
 }
 
+/*
+ * Programa que escreve na consola jogadas possiveis e devolve o nº delas
+ */
 int AjudaJogadas(TabuleiroPtr board, int x, int y)
 {
 	//REI
@@ -73,16 +76,17 @@ int AjudaJogadas(TabuleiroPtr board, int x, int y)
 	*/
 	int tmp = 0;
 	printf("Possiveis Jogadas:\n");
-	for(int i = -1; i < 2; i++)
-		for(int j = -1; j< 2; j++)
-		{
-			
-			if((*board)[x+i][y+j] == NULL)
-			{
-				tmp++;
-				printf("-> %d %d", i, j);
-			}
-		}
+	if (strcmp((*board)[x][y]->tipo, "Rei"))
+	{
+		for (int i = -1; i < 2; i++)
+			for (int j = -1; j < 2; j++)
+				if ((*board)[x + i][y + j] == NULL)
+				{
+					tmp++;
+					printf("-> %d %d", i, j);
+				}
+	}
+	//if(strcmp((*board)[x][y]->tipo, "Rainha"))
 	return tmp;
 }
 
@@ -92,7 +96,7 @@ int AjudaJogadas(TabuleiroPtr board, int x, int y)
 void ImprimirTabuleiro(TabuleiroPtr board)
 {
 	int row = 0;
-	printf("     0   1   2   3   4   5   6   7\n");
+	printf("     0   1   2   3   4   5   6   7   X\n");
 	printf("   +---+---+---+---+---+---+---+---+\n");		//com printf dá erro????
 
 	for (int x = 0; x < SIZE; x++)
@@ -109,7 +113,9 @@ void ImprimirTabuleiro(TabuleiroPtr board)
 		}
 		printf("\n");
 		printf("   +---+---+---+---+---+---+---+---+\n");
+		
 	}
+	printf(" Y\n\n");
 }
 
 
