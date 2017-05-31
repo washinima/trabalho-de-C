@@ -197,7 +197,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			if (movimento.X > 0)
 			{
-				for (i = 1; i <= movimento.X; i++)
+				for (i = 1; i < movimento.X; i++)
 				{
 					if ((*board)[x + i][y] != NULL)
 						break;
@@ -205,9 +205,9 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 				if (i == movimento.X)
 					return true;
 			}
-			if (movimento.X < 0)
+			else if (movimento.X < 0)
 			{
-				for (i = -1; i >= movimento.X ; i--)
+				for (i = -1; i > movimento.X ; i--)
 				{
 					if ((*board)[x + i][y] != NULL)
 						break;
@@ -220,7 +220,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			if (movimento.Y > 0)
 			{
-				for (i = 1; i <= movimento.Y; i++)
+				for (i = 1; i < movimento.Y; i++)
 				{
 					if ((*board)[x][y+i] != NULL)
 						break;
@@ -228,9 +228,9 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 				if (i == movimento.Y)
 					return true;
 			}
-			if (movimento.Y < 0)
+			else if (movimento.Y < 0)
 			{
-				for (i = -1; i >= movimento.Y; i--)
+				for (i = -1; i > movimento.Y; i--)
 				{
 					if ((*board)[x ][y+i] != NULL)
 						break;
@@ -243,7 +243,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			if (movimento.Y > 0)
 			{
-				for (i = 1; i <= movimento.Y; i++)
+				for (i = 1; i < movimento.Y; i++)
 				{
 					if ((*board)[x+i][y + i] != NULL)
 						break;
@@ -253,7 +253,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 			}
 			if (movimento.Y < 0)
 			{
-				for (i = -1; i >= movimento.Y; i--)
+				for (i = -1; i > movimento.Y; i--)
 				{
 					if ((*board)[x+i][y + i] != NULL)
 						break;
@@ -269,7 +269,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			if (movimento.X > 0)
 			{
-				for (i = 1; i <= movimento.X; i++)
+				for (i = 1; i < movimento.X; i++)
 				{
 					if ((*board)[x + i][y] != NULL)
 						break;
@@ -277,9 +277,9 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 				if (i == movimento.X)
 					return true;
 			}
-			if (movimento.X < 0)
+			else if (movimento.X < 0)
 			{
-				for (i = -1; i >= movimento.X; i--)
+				for (i = -1; i > movimento.X; i--)
 				{
 					if ((*board)[x + i][y] != NULL)
 						break;
@@ -292,7 +292,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			if (movimento.Y > 0)
 			{
-				for (i = 1; i <= movimento.Y; i++)
+				for (i = 1; i < movimento.Y; i++)
 				{
 					if ((*board)[x][y + i] != NULL)
 						break;
@@ -300,9 +300,9 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 				if (i == movimento.Y)
 					return true;
 			}
-			if (movimento.Y < 0)
+			else if (movimento.Y < 0)
 			{
-				for (i = -1; i >= movimento.Y; i--)
+				for (i = -1; i > movimento.Y; i--)
 				{
 					if ((*board)[x][y + i] != NULL)
 						break;
@@ -318,7 +318,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			if (movimento.Y > 0)
 			{
-				for (i = 1; i <= movimento.Y; i++)
+				for (i = 1; i < movimento.Y; i++)
 				{
 					if ((*board)[x + i][y + i] != NULL)
 						break;
@@ -328,7 +328,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 			}
 			if (movimento.Y < 0)
 			{
-				for (i = -1; i >= movimento.Y; i--)
+				for (i = -1; i > movimento.Y; i--)
 				{
 					if ((*board)[x + i][y + i] != NULL)
 						break;
