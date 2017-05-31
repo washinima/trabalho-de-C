@@ -76,6 +76,7 @@ bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2);
 PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer);
 void visualChange(PecaPtr peca, bool isPlayer);
 TabuleiroPtr AtualizaPosicoes(TabuleiroPtr board);
+void checkPeaoRainha(PecaPtr aux, PlayerPtr player);
 
 
 //LISTAS

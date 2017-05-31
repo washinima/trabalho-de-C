@@ -57,7 +57,6 @@ TabuleiroPtr CreateBoard(PlayerPtr player1, PlayerPtr player2)
 	return board;
 }
 
-
 /*
 Função para criar uma peça Peão
 */
@@ -73,7 +72,6 @@ PecaPtr CriarPeao(int numPeca, int x, int y, bool isPlayer)
 	peao->next = NULL;
 	return peao;
 }
-
 
 /*
 Função para criar a peça Rei
@@ -92,7 +90,6 @@ PecaPtr CriarRei(int numPeca, int x, int y, bool isPlayer)
 	return rei;
 }
 
-
 /*
  * Retorna o apontador para a peça se esta estiver numa lista 
  */
@@ -108,6 +105,8 @@ PecaPtr RetirarPeca(TabuleiroPtr board,  int x, int y, PecaPtr listaPecas)
  */
 bool VerificaMovimento(PecaPtr peca, Vetor movimento)
 {
+	if (movimento.X == 0  && movimento.Y == 0)
+		return false;
 	if (peca->posicao.X + movimento.X >= SIZE || peca->posicao.X + movimento.X < 0)
 		return false;
 	if (peca->posicao.Y + movimento.Y >= SIZE || peca->posicao.Y + movimento.Y < 0)
@@ -343,7 +342,6 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 
 }
 
-
 /*
  * Funçao que mexe a Peça.
  */
@@ -365,11 +363,40 @@ TabuleiroPtr MexerPeca(TabuleiroPtr board, JogadasPtr jogada, PlayerPtr player, 
 	}
 
 	(*board)[x][y]->posicao.X = x1; (*board)[x][y]->posicao.Y = y1;
+	
+	if(strcmp ((*board)[x][y]->tipo , "Peao") == 0)
+	{
+		checkPeaoRainha((*board)[x][y], player);
+	}
 
 	(*board)[x1][y1] = (*board)[x][y];
 	(*board)[x][y] = NULL;
 
 	return board;
+}
+
+
+/*
+ * Evolui o peao se Chegar ao fim do tabuleiro
+ */
+void checkPeaoRainha(PecaPtr aux, PlayerPtr player)
+{
+	if (player->player)
+	{
+		if (aux->posicao.X == 0)
+		{
+			aux->tipo = "Rainha";
+			visualChange(aux, player->player);
+		}
+	}
+	else
+	{
+		if(aux->posicao.X == 7)
+		{
+			aux->tipo = "Rainha";
+			visualChange(aux, player->player);
+		}
+	}
 }
 
 /*
@@ -404,7 +431,6 @@ void visualChange(PecaPtr peca, bool isPlayer)
 		else peca->visualPeca = 'R';
 	}
 }
-
 
 /*
  * Funçao que cria o jogador
@@ -474,6 +500,10 @@ PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer)
 	return peca;
 }
 
+/*
+ * Funçao que supostamente atualizava a posiçao das peças (nao funciona). 
+ * Ja fazemos nisso quando mexemos uma peça. 
+ */
 TabuleiroPtr AtualizaPosicoes(TabuleiroPtr board)
 {
 	for (int x = 0; x < SIZE; x++)
