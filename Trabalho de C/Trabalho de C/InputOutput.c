@@ -7,54 +7,66 @@
  */
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 {
-	int x, y, x1, y1, tmp;
+	int x, y, x1, y1, tmp, tmp2;
 	Vetor movimento;
 	PecaPtr aux;
-	bool auxBool;
-
-	do
+	bool auxBool = false;
+	while (auxBool == false)
 	{
-		printf("Que Pe�a quer mexer? \nEscreva as Coordenadas\n");
-		fflush(stdin);
-		scanf(" %d", &y);
-		fflush(stdin);
-		scanf(" %d", &x);
-
-		aux = RetirarPeca(board, x, y, player->listaPecas);
-		if (aux == NULL)
+		do
 		{
-			printf("Peca nao Premitida\n");
-		}
-		else if (strcmp(aux->tipo, "Rei") == 0)
-		{
-			tmp = AjudaJogadas(board, x, y);
+			printf("Que Pe�a quer mexer? \nEscreva as Coordenadas\n");
+			fflush(stdin);
+			scanf(" %d", &y);
+			fflush(stdin);
+			scanf(" %d", &x);
 
-			if (tmp == 0)
+			aux = RetirarPeca(board, x, y, player->listaPecas);
+			if (aux == NULL)
 			{
-				printf("Nao ha jogadas possiveis\n");
-				aux = NULL;
+				printf("Peca nao Premitida\n");
 			}
-		}
-	}
-	while (aux == NULL);
+			else if (strcmp(aux->tipo, "Rei") == 0)
+			{
+				tmp = AjudaJogadas(board, x, y);
 
-	do 
-	{
-		printf("Para onde a quer mexer?\nEscreva as Coordenadas\n");
-		fflush(stdin);
-		scanf(" %d", &y1);
-		fflush(stdin);
-		scanf(" %d", &x1);
-		int x2 = x1 - x;
-		int y2 = y1 - y;
-		movimento.X = x2;
-		movimento.Y = y2;
-		auxBool = VerificarJogada(board, movimento, aux);
-		if (auxBool == false)
+				if (tmp == 0)
+				{
+					printf("Nao ha jogadas possiveis\n");
+					aux = NULL;
+				}
+			}
+		} while (aux == NULL);
+
+		do
 		{
-			printf("Jogada Invalida. Escreva outravez\n");
-		}
-	}while(auxBool == false);
+			printf("Para onde a quer mexer?\nEscreva as Coordenadas\n");
+			printf("Para escolher uma peça diferente, Escreva -1 -1 \n");
+			fflush(stdin);
+			scanf(" %d", &y1);
+			fflush(stdin);
+			scanf(" %d", &x1);
+
+
+			if (y1 == -1 && x1 == -1)
+			{
+				break;
+			}
+
+
+			int x2 = x1 - x;
+			int y2 = y1 - y;
+			movimento.X = x2;
+			movimento.Y = y2;
+			auxBool = VerificarJogada(board, movimento, aux);
+			if (auxBool == false)
+			{
+				printf("Jogada Invalida. Escreva outravez\n");
+			}
+
+
+		} while (auxBool == false);
+	}
 	
 	//printf("JOGADA");
 
@@ -76,7 +88,7 @@ int AjudaJogadas(TabuleiroPtr board, int x, int y)
 	*/
 	int tmp = 0;
 	printf("Possiveis Jogadas:\n");
-	if (strcmp((*board)[x][y]->tipo, "Rei"))
+	if (strcmp((*board)[x][y]->tipo, "Rei") == 0)
 	{
 		for (int i = -1; i < 2; i++)
 			for (int j = -1; j < 2; j++)
