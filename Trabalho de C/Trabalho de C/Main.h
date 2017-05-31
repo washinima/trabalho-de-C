@@ -88,6 +88,7 @@ void FreeLista(JogadasPtr head);
 bool EncontraPeca(PecaPtr peca, PecaPtr head);
 bool EncontraRei(PecaPtr head);
 PecaPtr EliminarPeca(PecaPtr peca, PecaPtr head);
+int TamanhoLista(PecaPtr head);
 
 
 //IMPRESSÃO

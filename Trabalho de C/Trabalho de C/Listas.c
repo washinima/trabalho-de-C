@@ -68,6 +68,23 @@ bool EncontraRei(PecaPtr head)
 	return false;
 }
 
+/*
+ * Calcula o Tamanho de Uma Lista de Jogadas
+ */
+int TamanhoLista(PecaPtr head)
+{
+	int tmp = 0;
+	if (head == NULL) return tmp;
+
+	while (head->next != NULL)
+	{
+			tmp++;
+			head = head->next;
+	}
+
+	return tmp;
+}
+
 
 /*
 Funcão que insere a jogada mais recente na última posição da lista de jogadas

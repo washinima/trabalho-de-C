@@ -496,7 +496,12 @@ PlayerPtr CriarJogador(bool isPlayer)
  */
 bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2)
 {
-	if(!EncontraRei(pl1->listaPecas) || !EncontraRei(pl2->listaPecas))
+	if(EncontraRei(pl1->listaPecas) && TamanhoLista(pl1->listaPecas) == 1)
+	{
+		return true;
+	}
+
+	if(EncontraRei(pl2->listaPecas) && TamanhoLista(pl2->listaPecas) == 1)
 	{
 		return true;
 	}
