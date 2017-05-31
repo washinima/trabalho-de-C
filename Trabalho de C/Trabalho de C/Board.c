@@ -337,7 +337,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 	}
 	else if (strcmp(peca->tipo, "Bispo") == 0)
 	{
-		if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
+		if (movimento.Y == movimento.X)
 		{
 			if (movimento.Y > 0)
 			{
@@ -354,6 +354,29 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 				for (i = -1; i > movimento.Y; i--)
 				{
 					if ((*board)[x + i][y + i] != NULL)
+						break;
+				}
+				if (i == movimento.Y)
+					return true;
+			}
+		}
+		else if (movimento.X == -movimento.Y)
+		{
+			if (movimento.X > 0)
+			{
+				for (i = 1; i < movimento.X; i++)
+				{
+					if ((*board)[x + i][y - i] != NULL)
+						break;
+				}
+				if (i == movimento.X)
+					return true;
+			}
+			else if (movimento.Y > 0)
+			{
+				for (i = 1; i < movimento.Y; i++)
+				{
+					if ((*board)[x - i][y + i] != NULL)
 						break;
 				}
 				if (i == movimento.Y)
