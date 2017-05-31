@@ -465,11 +465,12 @@ bool VerificaFim(PlayerPtr pl1, PlayerPtr pl2)
  */
 PecaPtr Evolui(PecaPtr peca, PecaPtr comida, bool isPlayer)
 {
-	int random = rand();
+	srand(time(NULL));				//precisa de ser chamado sempre que se quer usar o rand() senão o valor é sempre o mesmo
+	int random = rand() % 2;
 	if (strcmp(peca->tipo, "Peao") == 0)
 	{
 		if (strcmp(comida->tipo, "Peao") == 0)
-			if (random > 5)
+			if (random == 0)
 			{
 				peca->tipo = "Torre";
 				visualChange(peca, isPlayer);

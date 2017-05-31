@@ -3,7 +3,7 @@
 
 
 /*
- * Funçao que pede ao jogador a sua jogada;
+ * Funï¿½ao que pede ao jogador a sua jogada;
  */
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 {
@@ -14,7 +14,7 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 
 	do
 	{
-		printf("Que Peça quer mexer? \nEscreva as Coordenadas\n");
+		printf("Que Peï¿½a quer mexer? \nEscreva as Coordenadas\n");
 		fflush(stdin);
 		scanf(" %d", &y);
 		fflush(stdin);
@@ -66,7 +66,7 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 }
 
 /*
- * Programa que escreve na consola jogadas possiveis e devolve o nº delas
+ * Programa que escreve na consola jogadas possiveis e devolve o nï¿½ delas
  */
 int AjudaJogadas(TabuleiroPtr board, int x, int y)
 {
@@ -91,13 +91,13 @@ int AjudaJogadas(TabuleiroPtr board, int x, int y)
 }
 
 /*
- * Funçao que imprime o tabuleiro
+ * Funï¿½ao que imprime o tabuleiro
  */
 void ImprimirTabuleiro(TabuleiroPtr board)
 {
 	int row = 0;
 	printf("     0   1   2   3   4   5   6   7   X\n");
-	printf("   +---+---+---+---+---+---+---+---+\n");		//com printf dá erro????
+	printf("   +---+---+---+---+---+---+---+---+\n");
 
 	for (int x = 0; x < SIZE; x++)
 	{
@@ -106,8 +106,8 @@ void ImprimirTabuleiro(TabuleiroPtr board)
 		printf("|");
 		for (int y = 0; y < SIZE; y++)
 		{
-			if ((*board)[x][y] != NULL)										//'\0' ocupa um espaço de caracter completo na consola para ficar um char "vazio"(nulo)
-				printf("%c%c%c|", '\0', (*board)[x][y]->visualPeca, '\0');	//%c%c%c para a peça ficar no meio do quadrado do tabuleiro
+			if ((*board)[x][y] != NULL)										//'\0' ocupa um espaï¿½o de caracter completo na consola para ficar um char "vazio"(nulo)
+				printf("%c%c%c|", '\0', (*board)[x][y]->visualPeca, '\0');	//%c%c%c para a peï¿½a ficar no meio do quadrado do tabuleiro
 			else
 				printf("%3c|", '\0');
 		}
@@ -120,29 +120,29 @@ void ImprimirTabuleiro(TabuleiroPtr board)
 
 
 /*
- * Funçao que Imprime as Regras do Jogo
+ * Funï¿½ao que Imprime as Regras do Jogo
  */
 void Regras()
 {
-	printf("Este jogo e uma versao do Xadrez em que o jogador começa so com Peoes e o Rei\n");
-	printf("Principais Diferenças:\n");
-	printf("O Rei nao pode atacar.\nOs Peoes podem mover-se para todos os lados mas so podem comer na diagonal\n");
-	printf("O jogador pode comer as suas proprias peças para forçar uma evoluçao\n");
+	printf("Este jogo ï¿½ uma versï¿½o do Xadrez em que o jogador comeï¿½a sï¿½ com Peï¿½es e o Rei.\n");
+	printf("Principais Diferenï¿½as:\n");
+	printf("O Rei nï¿½o pode atacar.\nOs Peï¿½es podem mover-se para todos os lados mas sï¿½ podem comer na diagonal.\n");
+	printf("O jogador pode comer as suas prï¿½prias peï¿½as para forï¿½ar uma evoluï¿½ï¿½o.\n");
 }
 
 
 /*
-* Funçao que controla o jogo
+* Funï¿½ao que controla o jogo
 */
 void Jogar()
 {
 	/*
-	* Fazer funçao para criar jogadores - done
+	* Fazer funï¿½ao para criar jogadores - done
 	* Criar os dois jogadores aqui - done
 	* Modificar a CreateBoard para ter os dois jogadores - done
-	* Fazer uma funçao que verifica se acabou o jogo - done
+	* Fazer uma funï¿½ao que verifica se acabou o jogo - done
 	*
-	* Montar a Jogar com as funçoes que temos
+	* Montar a Jogar com as funï¿½oes que temos
 	*
 	* Maquina de Estados a correr isto ate acabar o jogo
 	* Imprimir o Tabuleiro -> Escolher a Jogada -> Fazer a Jogada -> Passar o Turno
@@ -190,11 +190,10 @@ void Jogar()
 
 
 /*
- * Funçao que controla o Menu de Jogo
+ * Funï¿½ao que controla o Menu de Jogo
  */
 void Menu()
 {
-	srand(time(NULL));
 	int opcao = 0;
 	while (opcao != 3)
 	{
@@ -210,9 +209,11 @@ void Menu()
 		switch (opcao)
 		{
 		case 1:
+			system("cls");
 			Jogar();
 			break;
 		case 2:
+			system("cls");
 			Regras();
 			break;
 		default:
