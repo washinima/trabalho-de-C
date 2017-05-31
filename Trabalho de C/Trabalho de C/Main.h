@@ -8,9 +8,6 @@
 #ifndef A
 #define A
 
-
-#define RAND_MAX 10
-
 #define SIZE 8
 
 //---------------------------------------------------------
@@ -30,9 +27,9 @@ typedef Coordenadas Vetor;
 
 typedef struct Peca {
 	int numPeca;				//1  2  3  4  5  6  7  8 / 9  10 11 12 13 14 15 16 <--- demonstração dos números de cada peça no tabuleiro
-	char* tipo;					//peão, rei, peão "melhorado"
+	char* tipo;					//peão, rei, torre, bispo, rainha
 	char visualPeca;
-	Coordenadas posicao;		// o peao melhorado eu estava a pensar transformar tipo num cavalo e ser sempre a melhorar
+	Coordenadas posicao;
 	struct Peca *next;
 }Peca;
 

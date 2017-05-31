@@ -2,7 +2,7 @@
 #include <string.h>
 
 /*
- * Funçao que cria o Tabuleiro e mete as peças em cada jogador respetivamente
+ * Função que cria o Tabuleiro e mete as peças em cada jogador respetivamente
  */
 TabuleiroPtr CreateBoard(PlayerPtr player1, PlayerPtr player2)
 {

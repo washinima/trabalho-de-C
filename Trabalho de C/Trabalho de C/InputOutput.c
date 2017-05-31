@@ -3,7 +3,7 @@
 
 
 /*
- * Fun�ao que pede ao jogador a sua jogada;
+ * Função que pede ao jogador a sua jogada;
  */
 JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 {
@@ -15,7 +15,7 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 	{
 		do
 		{
-			printf("Que Pe�a quer mexer? \nEscreva as Coordenadas\n");
+			printf("Que Peca quer mexer? \nEscreva as Coordenadas\n");
 			fflush(stdin);
 			scanf(" %d", &y);
 			fflush(stdin);
@@ -78,7 +78,7 @@ JogadasPtr EscolherJogada(TabuleiroPtr board, PlayerPtr player)
 }
 
 /*
- * Programa que escreve na consola jogadas possiveis e devolve o n� delas
+ * Programa que escreve na consola jogadas possiveis e devolve o nº delas
  */
 int AjudaJogadas(TabuleiroPtr board, int x, int y)
 {
@@ -118,8 +118,8 @@ void ImprimirTabuleiro(TabuleiroPtr board)
 		printf("|");
 		for (int y = 0; y < SIZE; y++)
 		{
-			if ((*board)[x][y] != NULL)										//'\0' ocupa um espa�o de caracter completo na consola para ficar um char "vazio"(nulo)
-				printf("%c%c%c|", '\0', (*board)[x][y]->visualPeca, '\0');	//%c%c%c para a pe�a ficar no meio do quadrado do tabuleiro
+			if ((*board)[x][y] != NULL)										//'\0' ocupa um espaço de caracter completo na consola para ficar um char "vazio"(nulo)
+				printf("%c%c%c|", '\0', (*board)[x][y]->visualPeca, '\0');	//%c%c%c para a peça ficar no meio do quadrado do tabuleiro
 			else
 				printf("%3c|", '\0');
 		}
@@ -136,23 +136,31 @@ void ImprimirTabuleiro(TabuleiroPtr board)
  */
 void Regras()
 {
-	printf("Este jogo � uma vers�o do Xadrez em que o jogador come�a s� com Pe�es e o Rei.\n");
-	printf("Principais Diferen�as:\n");
-	printf("O Rei n�o pode atacar.\nOs Pe�es podem mover-se para todos os lados mas s� podem comer na diagonal.\n");
-	printf("O jogador pode comer as suas pr�prias pe�as para for�ar uma evolu��o.\n");
+	printf("Este jogo é uma versão do Xadrez em que o jogador começa só com Peões e o Rei.\n");
+	printf("Principais Diferenças:\n");
+	printf("Os peões podem-se mover em qualquer direção uma casa, mas, apenas podem comer na diagonal.\n");
+	printf("O rei não pode comer.\n");
+	printf("Qualquer peça pode cometer canibalismo e comer uma peça da sua própria equipa assumindo a sua posição no tabuleiro.\n");
+	printf("Caso seja um peão a comer um outro peão, este evolve-se para uma peça mais forte (torre ou bispo), sendo aleatória a peça final com chance equivalente.\n");
+	printf("Caso seja uma torre a comer um bispo ou vice-versa, a peça transforma-se numa rainha.\n");
+	printf("Qualquer outro caso de canibalismo, não acontece nada para além do referido antes.\n");
+	printf("Se um peão chegar à última linha do tabuleiro, ou seja, a primeira linha do adversário, esta transforma-se numa rainha.\n");
+	printf("O jogador ganhar quando derrota o rei do adversário ou quando este apenas tem o rei, pois este não consegue atacar.");
+	printf("\nPressione qualquer tecla para voltar...");
+	getch();
 }
 
 
 /*
-* Fun�ao que controla o jogo
+* Função que controla o jogo
 */
 void Jogar()
 {
 	/*
-	* Fazer fun�ao para criar jogadores - done
+	* Fazer função para criar jogadores - done
 	* Criar os dois jogadores aqui - done
 	* Modificar a CreateBoard para ter os dois jogadores - done
-	* Fazer uma fun�ao que verifica se acabou o jogo - done
+	* Fazer uma função que verifica se acabou o jogo - done
 	*
 	* Montar a Jogar com as fun�oes que temos
 	*
@@ -170,6 +178,7 @@ void Jogar()
 
 	while (playing)
 	{
+		system("cls");
 		ImprimirTabuleiro(board);
 		if (currentPlayer->player)
 			printf("Player1\n");
@@ -180,9 +189,9 @@ void Jogar()
 		fflush(stdin);
 		board = MexerPeca(board,jog , currentPlayer, nextPlayer);
 
-		/*aux = currentPlayer;
+		aux = currentPlayer;
 		currentPlayer = nextPlayer;
-		nextPlayer = aux;*/
+		nextPlayer = aux;
 
 		if (VerificaFim(player1, player2))
 		{
@@ -194,6 +203,8 @@ void Jogar()
 			{
 				printf("Ganhou o Player1");
 			}
+			printf("\nPressione qualquer tecla para continuar...");
+			getch();
 		}
 
 		//board = AtualizaPosicoes(board);
@@ -202,7 +213,7 @@ void Jogar()
 
 
 /*
- * Fun�ao que controla o Menu de Jogo
+ * Função que controla o Menu de Jogo
  */
 void Menu()
 {
@@ -213,8 +224,7 @@ void Menu()
 		printf("#####################\n");
 		printf("#    1 - Jogar      #\n");
 		printf("#    2 - Regras     #\n");
-		printf("#    3 - Imprime    #\n");
-		printf("#    4 - Sair       #\n");
+		printf("#    3 - Sair       #\n");
 		printf("#####################\n");
 		scanf_s("%d", &opcao);
 
