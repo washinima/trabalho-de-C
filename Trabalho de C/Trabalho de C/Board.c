@@ -164,7 +164,7 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 		{
 			return true;
 		}
-		if(movimento.X == 0)
+		else if(movimento.X == 0)
 		{
 			if(movimento.Y == 1)
 			{
@@ -380,6 +380,40 @@ bool VerificarJogada(TabuleiroPtr board, Vetor movimento, PecaPtr peca)
 						break;
 				}
 				if (i == movimento.Y)
+					return true;
+			}
+		}
+	}
+	else if (strcmp(peca->tipo, "Rei") == 0)
+	{
+		if (movimento.X == movimento.Y || movimento.X == -movimento.Y)
+		{
+			if((*board)[x1][y1] == NULL)
+				return true;
+		}
+		else if (movimento.X == 0)
+		{
+			if (movimento.Y == 1)
+			{
+				if ((*board)[x][y + 1] == NULL)
+					return true;
+			}
+			else if (movimento.Y == -1)
+			{
+				if ((*board)[x][y - 1] == NULL)
+					return true;
+			}
+		}
+		else if (movimento.Y == 0)
+		{
+			if (movimento.X == 1)
+			{
+				if ((*board)[x + 1][y] == NULL)
+					return true;
+			}
+			else if (movimento.X == -1)
+			{
+				if ((*board)[x - 1][y] == NULL)
 					return true;
 			}
 		}

@@ -87,7 +87,7 @@ int AjudaJogadas(TabuleiroPtr board, int x, int y)
 	* -1 -1 | -1  1 | -1  0 | 0 -1 | 0  1 | 1  0 | 1 -1 | 1  1
 	*/
 	int tmp = 0;
-	printf("Possiveis Jogadas:\n");
+	//printf("Possiveis Jogadas:\n");
 	if (strcmp((*board)[x][y]->tipo, "Rei") == 0)
 	{
 		for (int i = -1; i < 2; i++)
@@ -95,7 +95,7 @@ int AjudaJogadas(TabuleiroPtr board, int x, int y)
 				if ((*board)[x + i][y + j] == NULL)
 				{
 					tmp++;
-					printf("-> %d %d", i, j);
+					//printf("-> %d %d \n", x+i, j+j);
 				}
 	}
 	//if(strcmp((*board)[x][y]->tipo, "Rainha"))
