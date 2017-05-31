@@ -120,7 +120,7 @@ bool VerificaMovimento(PecaPtr peca, Vetor movimento)
 				return true;
 	}
 	//Rainha
-	else if(strcmp((peca->tipo), "Rainha"))
+	else if(strcmp((peca->tipo), "Rainha") == 0)
 	{
 		if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
 				return true;
@@ -130,13 +130,13 @@ bool VerificaMovimento(PecaPtr peca, Vetor movimento)
 			return true;
 	}
 	//BISPO
-	else if (strcmp((peca->tipo), "Bispo"))
+	else if (strcmp((peca->tipo), "Bispo") == 0)
 	{
 		if (movimento.Y == movimento.X || movimento.X == -movimento.Y)
 			return true;
 	}
 	//Torre
-	else if (strcmp((peca->tipo), "Torre"))
+	else if (strcmp((peca->tipo), "Torre") == 0)
 	{
 		if (movimento.X != 0 && movimento.Y == 0)
 			return true;
